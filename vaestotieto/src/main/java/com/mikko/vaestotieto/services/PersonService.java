@@ -15,6 +15,10 @@ public class PersonService {
 		this.persons = persons;
 	}
 	
+	public List<Person> getAllPersons() {
+		return persons;
+	}
+	
 	public Person getPersonById(Long id) {
 		for (Person person : persons) {
 			if (person.getId().equals(id)) {
@@ -23,4 +27,10 @@ public class PersonService {
 		}
 		return null;
 	}
+
+	public Person createPerson(Person person) {
+		persons.add(person);
+		return person;
+	}
+
 }

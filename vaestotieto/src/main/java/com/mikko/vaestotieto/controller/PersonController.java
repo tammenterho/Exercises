@@ -1,5 +1,7 @@
 package com.mikko.vaestotieto.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,11 @@ public class PersonController {
 	@Autowired
 	public PersonController (PersonService personService) {
 		this.personService = personService;
+	}
+	
+	public ResponseEntity<List<Person>>getAllPersons() {
+		List<Person> persons = personService.getAllPersons();
+		return new ResponseEntity<> (persons, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
