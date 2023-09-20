@@ -33,4 +33,15 @@ public class PersonService {
 		return person;
 	}
 
+	public Person updatePerson(Long id, Person updatedPerson) {
+		for (int i = 0; i < persons.size(); i++) {
+			if (persons.get(i).getId().equals(id)) {
+				persons.set(i, updatedPerson);
+				return updatedPerson;
+			}
+		}
+		
+		return null;
+	}
+
 }
