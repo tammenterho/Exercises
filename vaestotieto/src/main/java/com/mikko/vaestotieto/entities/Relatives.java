@@ -1,5 +1,6 @@
 package com.mikko.vaestotieto.entities;
 
+
 public class Relatives {
 	private String iCAContactName;
 	private String iCAContactNumber;

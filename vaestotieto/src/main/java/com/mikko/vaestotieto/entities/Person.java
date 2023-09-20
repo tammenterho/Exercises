@@ -3,6 +3,7 @@ package com.mikko.vaestotieto.entities;
 import java.sql.Date;
 
 public class Person {
+	private Long id;
 	private String firstname;
 	private String lastname;
 	private Date birth;
@@ -13,7 +14,8 @@ public class Person {
 	private String marital;
 	private String ssn;
 	
-	public Person (String firstname, String lastname, Date birth, Date death, String sex, String nationality, String language, String marital, String ssn) {
+	public Person (Long id, String firstname, String lastname, Date birth, Date death, String sex, String nationality, String language, String marital, String ssn) {
+		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.birth = birth;
@@ -24,6 +26,14 @@ public class Person {
 		this.marital = marital;
 		this.ssn = ssn;
 		
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstname() {
