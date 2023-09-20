@@ -1,6 +1,11 @@
 package com.mikko.vaestotieto.entities;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class Person {
 	private Long id;
@@ -73,29 +78,25 @@ public class Person {
 		this.death = death;
 	}
 	
-	  public boolean isValid() {
+	public boolean isValid() {
 	        if (birth != null && death != null) {
 	            return birth.before(death);
 	        }
 	        return false; 
 	    }
 
-	
 	public int calculateAge() {
-		if (birth == null || death == null) {
-            return 0;
-		
-	} 
-		long birthTime = birth.getTime();
-		long deathTime = death.getTime();
-		long ageInMillis = deathTime - birthTime;
-		
-		 double ageInYears = ageInMillis / (365.25 * 24 * 60 * 60 * 1000);
+		    if (birth == null) {
+		        return 0;
+		    }
 
-	        int age = (int) Math.floor(ageInYears);
-	        
-	        return age;
-	}
+		    LocalDate birthDate = birth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		    LocalDate currentDate = LocalDate.now();
+		    Period period = Period.between(birthDate, currentDate);
+
+		    return period.getYears();
+		}
+
 	
 	public int getAge() {
         return calculateAge();
@@ -127,6 +128,7 @@ public class Person {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	
 	
 
 }

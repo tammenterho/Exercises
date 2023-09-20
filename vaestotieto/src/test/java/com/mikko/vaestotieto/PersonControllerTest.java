@@ -2,7 +2,9 @@ package com.mikko.vaestotieto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.sql.Date;
+
+import java.time.LocalTime;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,13 +54,12 @@ public class PersonControllerTest {
 		@Test
 		public void testCalculateAge() {
 			Person person = new Person();
-			person.setBirth(new Date(80, 0, 1)); //1980   -    1900 + year (2000 = 100) , month 0-11, day 1-31 
-			person.setDeath(new Date(100, 0, 1)); //2000      -     1900 + year (1880 = 80 + 1900)
+			person.setBirth(new Date(93, 4, 25)); //1980   -    1900 + year (2000 = 100) , month 0-11, day 1-31 
 
 			int age = person.calculateAge();
 
 			
-			assertEquals(20, age);
+			assertEquals(30, age);
 		}
 		
 		 @Test
