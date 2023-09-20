@@ -9,22 +9,24 @@ public class Person {
 	private Date birth;
 	private Date death;
 	private int age;
-	private String sex;
-	private String nationality;
-	private String language;
-	private String ssn;
+	private Address address;
+	private Contact contact;
+	private Relatives relatives;
+	private PersonInfo personInfo;
+
 	
-	public Person (Long id, String firstname, String lastname, Date birth, Date death, int age, String sex, String nationality, String language, String marital, String ssn) {
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.birth = birth;
-		this.death = death;
-		this.age = age;
-		this.sex = sex;
-		this.nationality = nationality;
-		this.language = language;
-		this.ssn = ssn;
+	public Person (Long id, String firstname, String lastname, Date birth, Date death, int age, Address address, Contact contact, Relatives relatives, PersonInfo personInfo) {
+		this.id = id; //1
+		this.firstname = firstname; //2
+		this.lastname = lastname; //3
+		this.birth = birth; //4
+		this.death = death; //5
+		this.age = age; //6
+		this.address = address; //7
+		this.contact = contact; //8
+		this.relatives = relatives; //9
+		this.personInfo = personInfo; //10
+		
 		
 	}
 	public Person () {
@@ -78,38 +80,6 @@ public class Person {
 	        return false; 
 	    }
 
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getNationality() {
-		return nationality;
-	}
-
-	public void setNationality(String nationality) {
-		this.nationality = nationality;
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-
-	public String getSsn() {
-		return ssn;
-	}
-
-	public void setSsn(String ssn) {
-		this.ssn = ssn;
-	}
 	
 	public int calculateAge() {
 		if (birth == null || death == null) {
@@ -130,6 +100,33 @@ public class Person {
 	public int getAge() {
         return calculateAge();
     }
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public Contact getContact() {
+		return contact;
+	}
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+	public Relatives getRelatives() {
+		return relatives;
+	}
+	public void setRelatives(Relatives relatives) {
+		this.relatives = relatives;
+	}
+	public PersonInfo getPersonInfo() {
+		return personInfo;
+	}
+	public void setPersonInfo(PersonInfo personInfo) {
+		this.personInfo = personInfo;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 	
 
 }

@@ -63,7 +63,6 @@ public class PersonControllerTest {
 		
 		 @Test
 		    public void testCreatePersonInvalidData() throws Exception {
-		        
 		        Person person = new Person();
 		        person.setBirth(new Date(110, 0, 1)); //1980   -    1900 + year (2000 = 100) , month 0-11, day 1-31 
 				person.setDeath(new Date(100, 0, 1));
