@@ -1,5 +1,9 @@
 package com.mikko.vaestotieto;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.sql.Date;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,6 +19,7 @@ import com.mikko.vaestotieto.entities.Person;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PersonControllerTest {
+	
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -32,12 +37,27 @@ public class PersonControllerTest {
 	  @Test
 	    public void testCreatePerson() throws Exception {
 	        Person person = new Person();
-	        person.setFirstname("John");
-	        person.setLastname("Doe");
+	        person.setFirstname("Juuso");
+	        person.setLastname("Testinen");
 
 	        mockMvc.perform(MockMvcRequestBuilders.post("/persons/")
 	                .content(objectMapper.writeValueAsString(person))
 	                .contentType(MediaType.APPLICATION_JSON))
 	                .andExpect(MockMvcResultMatchers.status().isCreated());
 	    }
+	  
+
+		@Test
+		public void testCalculateAge() {
+			Person person = new Person();
+			person.setBirth(new Date(80, 0, 1)); // 1900 + year (2000 = 100) , month 0-11, day 1-31 
+			person.setDeath(new Date(100, 0, 1)); // 1900 + year (1880 = 80 + 1900)
+
+			int age = person.calculateAge();
+
+			
+			assertEquals(20, age);
+		}
+	  
+	  
 }

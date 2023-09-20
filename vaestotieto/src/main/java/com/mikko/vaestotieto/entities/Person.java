@@ -110,5 +110,21 @@ public class Person {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
+	
+	public int calculateAge() {
+		if (birth == null || death == null) {
+            return 0;
+		
+	} 
+		long birthTime = birth.getTime();
+		long deathTime = death.getTime();
+		long ageInMillis = deathTime - birthTime;
+		
+		 double ageInYears = ageInMillis / (365.25 * 24 * 60 * 60 * 1000);
+
+	        int age = (int) Math.floor(ageInYears);
+	        
+	        return age;
+	}
 
 }
