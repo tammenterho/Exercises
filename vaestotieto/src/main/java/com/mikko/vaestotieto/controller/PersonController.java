@@ -49,8 +49,13 @@ public class PersonController {
 	// POST - CREATE PERSON
 	@PostMapping("/")
 	public ResponseEntity<Person>createPerson(@RequestBody Person person) {
+		if (person.isValid()) {
 		Person newPerson = personService.createPerson(person);
 		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	
 	// PUT - UPDATE PERSON

@@ -8,22 +8,22 @@ public class Person {
 	private String lastname;
 	private Date birth;
 	private Date death;
+	private int age;
 	private String sex;
 	private String nationality;
 	private String language;
-	private String marital;
 	private String ssn;
 	
-	public Person (Long id, String firstname, String lastname, Date birth, Date death, String sex, String nationality, String language, String marital, String ssn) {
+	public Person (Long id, String firstname, String lastname, Date birth, Date death, int age, String sex, String nationality, String language, String marital, String ssn) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.birth = birth;
 		this.death = death;
+		this.age = age;
 		this.sex = sex;
 		this.nationality = nationality;
 		this.language = language;
-		this.marital = marital;
 		this.ssn = ssn;
 		
 	}
@@ -70,6 +70,13 @@ public class Person {
 	public void setDeath(Date death) {
 		this.death = death;
 	}
+	
+	  public boolean isValid() {
+	        if (birth != null && death != null) {
+	            return birth.before(death);
+	        }
+	        return false; 
+	    }
 
 	public String getSex() {
 		return sex;
@@ -95,13 +102,6 @@ public class Person {
 		this.language = language;
 	}
 
-	public String getMarital() {
-		return marital;
-	}
-
-	public void setMarital(String marital) {
-		this.marital = marital;
-	}
 
 	public String getSsn() {
 		return ssn;
@@ -126,5 +126,10 @@ public class Person {
 	        
 	        return age;
 	}
+	
+	public int getAge() {
+        return calculateAge();
+    }
+	
 
 }
