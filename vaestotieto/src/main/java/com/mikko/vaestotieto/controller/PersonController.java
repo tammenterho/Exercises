@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.services.PersonService;
 
@@ -57,7 +58,7 @@ public class PersonController {
 		
 	}
 	
-	// PUT - UPDATE PERSON
+	// PUT - UPDATE PERSON - ADMIN?
 	@PutMapping("/{id}")
 	public ResponseEntity<Person>updatePerson(@PathVariable Long id, @RequestBody Person person) {
 		Person updatedPerson = personService.updatePerson(id, person);
@@ -67,6 +68,28 @@ public class PersonController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	// PUT - UPDATE EMAIL
+	@PutMapping("/{id}/email")
+	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
+	    Person existingPerson = personService.getPersonById(id);
+	    
+	    if (existingPerson != null) {
+	        Address personAddress = existingPerson.getAddress(); 
+	        if (personAddress != null) {
+	            personAddress.setEmail(newEmail); 
+	            Person updatedPerson = personService.updatePerson(id, existingPerson);
+	            return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+
+
+
 	
 	// DELETE PERSON
 	@DeleteMapping("/{id}")

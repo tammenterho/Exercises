@@ -24,9 +24,9 @@ public class Person {
 		this.nationality = nationality; //5
 
 		this.address = address; //6
-		this.parents = parents; //8
-		this.personMore = personMore; //9
-		this.permits = permits;
+		this.parents = parents; //7
+		this.personMore = personMore; //8
+		this.permits = permits; //9
 		
 		
 		
@@ -35,9 +35,6 @@ public class Person {
 	} 
 	
 
-	public void setPersonMore(PersonMore personMore) {
-		this.personMore = personMore;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -88,7 +85,7 @@ public class Person {
 	public PersonMore getPersonMore() {
 		return personMore;
 	}
-	public void setPersonInfo(PersonMore personMore) {
+	public void setPersonMore(PersonMore personMore) {
 		this.personMore = personMore;
 	}
 
