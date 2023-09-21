@@ -1,54 +1,45 @@
 package com.mikko.vaestotieto.entities;
 
+import java.util.Date;
+
 public class Address {
-	private String street;
-	private String numberStair;
-	private String city;
-	private String postal;
+	private String localAddress; //lähiosoite
+	private String postal; // postitoimipaikka
+	private Date movingIn;
+	private int residents;
+	private String municipality;
+	private Date movingInMunicipality;
+	private String turnYearMunicipality; // turn of the year municipalit decides tax municipality
+	private String email;
+	private String phone;
 	
-	
-	
-	public Address(String street, String numberStair, String city, String postal) {
-		this.street = street;
-		this.numberStair = numberStair;
-		this.city = city;
+
+
+	public Address(String localAddress, String postal, Date movingIn, int residents, String municipality,
+			Date movingInMunicipality, String turnYearMunicipality, String email, String phone) {
+		
+		
+		this.localAddress = localAddress;
 		this.postal = postal;
+		this.movingIn = movingIn;
+		this.residents = residents;
+		this.municipality = municipality;
+		this.movingInMunicipality = movingInMunicipality;
+		this.turnYearMunicipality = turnYearMunicipality;
+		this.email = email;
+		this.phone = phone;
 	}
 
 
 
-	public String getStreet() {
-		return street;
+	public String getLocalAddress() {
+		return localAddress;
 	}
 
 
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-
-
-	public String getNumberStair() {
-		return numberStair;
-	}
-
-
-
-	public void setNumberStair(String numberStair) {
-		this.numberStair = numberStair;
-	}
-
-
-
-	public String getCity() {
-		return city;
-	}
-
-
-
-	public void setCity(String city) {
-		this.city = city;
+	public void setLocalAddress(String localAddress) {
+		this.localAddress = localAddress;
 	}
 
 
@@ -63,5 +54,89 @@ public class Address {
 		this.postal = postal;
 	}
 
-	
+
+
+	public Date getMovingIn() {
+		return movingIn;
+	}
+
+
+
+	public void setMovingIn(Date movingIn) {
+		this.movingIn = movingIn;
+	}
+
+
+
+	public int getResidents() {
+		return residents;
+	}
+
+
+
+	public void setResidents(int residents) {
+		this.residents = residents;
+	}
+
+
+
+	public String getMunicipality() {
+		return municipality;
+	}
+
+
+
+	public void setMunicipality(String municipality) {
+		this.municipality = municipality;
+	}
+
+
+
+	public Date getMovingInMunicipality() {
+		return movingInMunicipality;
+	}
+
+
+
+	public void setMovingInMunicipality(Date movingInMunicipality) {
+		this.movingInMunicipality = movingInMunicipality;
+	}
+
+
+
+	public String getTurnYearMunicipality() {
+		return turnYearMunicipality;
+	}
+
+
+
+	public void setTurnYearMunicipality(String turnYearMunicipality) {
+		this.turnYearMunicipality = turnYearMunicipality;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
 }

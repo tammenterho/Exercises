@@ -70,7 +70,6 @@ public class Person {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-	
 	public String getNationality() {
 		return nationality;
 	}
@@ -98,8 +97,6 @@ public class Person {
 	public void setPersonInfo(PersonMore personMore) {
 		this.personMore = personMore;
 	}
-	
-	
 
 	public void setNationality(String nationality) {
 		this.nationality = nationality;

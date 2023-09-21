@@ -79,8 +79,4 @@ public class PersonMore {
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
 	}
-	
-
-
-
 }

@@ -1,39 +1,48 @@
 package com.mikko.vaestotieto.entities;
 
+import java.util.Date;
 
 public class Parents {
-	private String iCAContactName;
-	private String iCAContactNumber;
-	private String iCAContactEmail;
+	private String parentsFirstName;
+	private String parentsLastName;
+	private Date parentsBirth;
 	
-	public Parents (String iCAContactName, String iCAContactNumber, String iCAContactEmail) {
-		this.iCAContactName = iCAContactName;
-		this.iCAContactNumber = iCAContactNumber;
-		this.iCAContactEmail = iCAContactEmail;
+	
+	public Parents(String parentsFirstName, String parentsLastName, Date parentsBirth) {
+		
+		this.parentsFirstName = parentsFirstName;
+		this.parentsLastName = parentsLastName;
+		this.parentsBirth = parentsBirth;
 	}
 
-	public String getiCAContactName() {
-		return iCAContactName;
+
+	public String getParentsFirstName() {
+		return parentsFirstName;
 	}
 
-	public void setiCAContactName(String iCAContactName) {
-		this.iCAContactName = iCAContactName;
+
+	public void setParentsFirstName(String parentsFirstName) {
+		this.parentsFirstName = parentsFirstName;
 	}
 
-	public String getiCAContactNumber() {
-		return iCAContactNumber;
+
+	public String getParentsLastName() {
+		return parentsLastName;
 	}
 
-	public void setiCAContactNumber(String iCAContactNumber) {
-		this.iCAContactNumber = iCAContactNumber;
+
+	public void setParentsLastName(String parentsLastName) {
+		this.parentsLastName = parentsLastName;
 	}
 
-	public String getiCAContactEmail() {
-		return iCAContactEmail;
+
+	public Date getParentsBirth() {
+		return parentsBirth;
 	}
 
-	public void setiCAContactEmail(String iCAContactEmail) {
-		this.iCAContactEmail = iCAContactEmail;
+
+	public void setParentsBirth(Date parentsBirth) {
+		this.parentsBirth = parentsBirth;
 	}
 	
 }
