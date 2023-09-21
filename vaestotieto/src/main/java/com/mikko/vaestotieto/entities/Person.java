@@ -1,11 +1,7 @@
 package com.mikko.vaestotieto.entities;
 
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
-import java.time.ZoneId;
-import java.util.Date;
+
 
 public class Person {
 	private Long id;
@@ -15,12 +11,12 @@ public class Person {
 	private String nationality; 
 
 	private Address address;
-	private Contact contact;
 	private Parents parents;
 	private PersonMore personMore;
+	private Permits permits;
 
 	
-	public Person (Long id, String firstnames, String lastname, String ssn, String nationality, Address address, Contact contact, Parents parents, PersonMore personMore) {
+	public Person (Long id, String firstnames, String lastname, String ssn, String nationality, Address address, Parents parents, PersonMore personMore, Permits permits) {
 		this.id = id; //1
 		this.firstnames = firstnames; //2
 		this.lastname = lastname; //3
@@ -28,9 +24,10 @@ public class Person {
 		this.nationality = nationality; //5
 
 		this.address = address; //6
-		this.contact = contact; //7
 		this.parents = parents; //8
 		this.personMore = personMore; //9
+		this.permits = permits;
+		
 		
 		
 	}
@@ -38,6 +35,9 @@ public class Person {
 	} 
 	
 
+	public void setPersonMore(PersonMore personMore) {
+		this.personMore = personMore;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -45,14 +45,13 @@ public class Person {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getFirstname() {
+	public String getFirstnames() {
 		return firstnames;
 	}
-
-	public void setFirstname(String firstname) {
-		this.firstnames = firstname;
+	public void setFirstnames(String firstnames) {
+		this.firstnames = firstnames;
 	}
+
 
 	public String getLastname() {
 		return lastname;
@@ -79,12 +78,7 @@ public class Person {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public Contact getContact() {
-		return contact;
-	}
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
+	
 	public Parents getParents() {
 		return parents;
 	}
@@ -102,6 +96,12 @@ public class Person {
 		this.nationality = nationality;
 	}
 	
+	public Permits getPermits() {
+		return permits;
+	}
+	public void setPermits(Permits permits) {
+		this.permits = permits;
+	}
 	
 
 }
