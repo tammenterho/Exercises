@@ -58,7 +58,7 @@ public class PersonController {
 		
 	}
 	
-	// PUT - UPDATE PERSON - ADMIN?
+	// PUT - UPDATE PERSON
 	@PutMapping("/{id}")
 	public ResponseEntity<Person>updatePerson(@PathVariable Long id, @RequestBody Person person) {
 		Person updatedPerson = personService.updatePerson(id, person);
@@ -69,7 +69,7 @@ public class PersonController {
 		}
 	}
 	
-	// PUT - UPDATE EMAIL
+	// PUT - UPDATE EMAIL - DEPENDS ON FORM - POSSIBLY LANGUAGE AND NUMBER ASWELL
 	@PutMapping("/{id}/email")
 	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
 	    Person existingPerson = personService.getPersonById(id);
@@ -91,7 +91,7 @@ public class PersonController {
 
 
 	
-	// DELETE PERSON
+	// DELETE - PERSON
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void>deletePerson(@PathVariable Long id) {
 		boolean deleted = personService.deletePerson(id);
@@ -101,4 +101,24 @@ public class PersonController {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
 	}
+	
+	// DELETE - EMAIL
+	@DeleteMapping("/{id}/email")
+	public ResponseEntity<Void> deleteEmail(@PathVariable Long id) {
+	    Person existingPerson = personService.getPersonById(id);
+	    
+	    if (existingPerson != null) {
+	        Address personAddress = existingPerson.getAddress(); 
+	        if (personAddress != null) {
+	            personAddress.setEmail(null); 
+	            Person updatedPerson = personService.updatePerson(id, existingPerson);
+	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+
 }

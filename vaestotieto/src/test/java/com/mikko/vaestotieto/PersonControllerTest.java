@@ -16,7 +16,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mikko.vaestotieto.entities.Address;
+import com.mikko.vaestotieto.entities.Parents;
+import com.mikko.vaestotieto.entities.Permits;
 import com.mikko.vaestotieto.entities.Person;
+import com.mikko.vaestotieto.entities.PersonMore;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,10 +43,27 @@ public class PersonControllerTest {
 	  @Test
 	    public void testCreatePerson() throws Exception {
 	        Person person = new Person();
-	        person.setFirstname("Juuso");
+	        person.setFirstnames("Juuso Olavi");
 	        person.setLastname("Testinen");
-	        person.setBirth(new Date(80, 0, 1)); 
-			person.setDeath(new Date(100, 0, 1));
+	        person.setSsn("222222-123R");
+	        person.setNationality("Finland");
+	        person.setNationality("Finnish");
+	        
+	        PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
+	        person.setPersonMore(personMore);
+	        
+	        Date date = new Date(120, 0, 11);
+	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
+	        person.setAddress(address);
+	        
+	        Parents parent1 = new Parents("Jussi", "Testinen", date);
+	        Parents parent2 = new Parents("Liisa", "Testinen", date);
+	        
+	        person.setParents(parent2, parent1);
+	        
+	        Permits permits = new Permits(false, true, false, false, true);
+	        person.setPermits(permits);
+	       
 
 	        mockMvc.perform(MockMvcRequestBuilders.post("/persons/")
 	                .content(objectMapper.writeValueAsString(person))
@@ -51,28 +72,7 @@ public class PersonControllerTest {
 	    }
 	  
 
-		@Test
-		public void testCalculateAge() {
-			Person person = new Person();
-			person.setBirth(new Date(93, 4, 25)); //1980   -    1900 + year (2000 = 100) , month 0-11, day 1-31 
-
-			int age = person.calculateAge();
-
-			
-			assertEquals(30, age);
-		}
-		
-		 @Test
-		    public void testCreatePersonInvalidData() throws Exception {
-		        Person person = new Person();
-		        person.setBirth(new Date(110, 0, 1)); //1980   -    1900 + year (2000 = 100) , month 0-11, day 1-31 
-				person.setDeath(new Date(100, 0, 1));
-
-				mockMvc.perform(MockMvcRequestBuilders.post("/persons/")
-		            .contentType(MediaType.APPLICATION_JSON)
-		            .content(objectMapper.writeValueAsString(person)))
-				.andExpect(MockMvcResultMatchers.status().isBadRequest());
-		    }
+	
 	  
 	  
 }

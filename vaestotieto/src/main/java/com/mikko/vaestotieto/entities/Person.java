@@ -99,6 +99,10 @@ public class Person {
 	public void setPermits(Permits permits) {
 		this.permits = permits;
 	}
+	public void setParents(Parents parent2, Parents parent1) {
+		
+		
+	}
 	
 
 }
