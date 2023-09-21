@@ -1,26 +1,28 @@
 package com.mikko.vaestotieto;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-import java.time.LocalTime;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Parents;
 import com.mikko.vaestotieto.entities.Permits;
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.entities.PersonMore;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,6 +34,8 @@ public class PersonControllerTest {
 	
 	@Autowired
 	private ObjectMapper objectMapper;
+	
+
 	
 	@Test
 	public void testGetAllPersons() throws Exception {
@@ -71,8 +75,14 @@ public class PersonControllerTest {
 	                .andExpect(MockMvcResultMatchers.status().isCreated());
 	    }
 	  
+	  @Test
+	  public void testDeletePerson() throws Exception {
+	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11)
+	              .contentType(MediaType.APPLICATION_JSON))
+	              .andExpect(MockMvcResultMatchers.status().isOk());
+	  }
 
-	
 	  
+	
 	  
 }
