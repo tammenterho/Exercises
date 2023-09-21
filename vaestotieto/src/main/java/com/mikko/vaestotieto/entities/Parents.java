@@ -1,12 +1,12 @@
 package com.mikko.vaestotieto.entities;
 
 
-public class Relatives {
+public class Parents {
 	private String iCAContactName;
 	private String iCAContactNumber;
 	private String iCAContactEmail;
 	
-	public Relatives (String iCAContactName, String iCAContactNumber, String iCAContactEmail) {
+	public Parents (String iCAContactName, String iCAContactNumber, String iCAContactEmail) {
 		this.iCAContactName = iCAContactName;
 		this.iCAContactNumber = iCAContactNumber;
 		this.iCAContactEmail = iCAContactEmail;

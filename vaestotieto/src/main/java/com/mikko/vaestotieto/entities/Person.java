@@ -9,28 +9,28 @@ import java.util.Date;
 
 public class Person {
 	private Long id;
-	private String firstname;
+	private String firstnames;
 	private String lastname;
-	private Date birth;
-	private Date death;
-	private int age;
+	private String ssn; 
+	private String nationality; 
+
 	private Address address;
 	private Contact contact;
-	private Relatives relatives;
-	private PersonInfo personInfo;
+	private Parents parents;
+	private PersonMore personMore;
 
 	
-	public Person (Long id, String firstname, String lastname, Date birth, Date death, int age, Address address, Contact contact, Relatives relatives, PersonInfo personInfo) {
+	public Person (Long id, String firstnames, String lastname, String ssn, String nationality, Address address, Contact contact, Parents parents, PersonMore personMore) {
 		this.id = id; //1
-		this.firstname = firstname; //2
+		this.firstnames = firstnames; //2
 		this.lastname = lastname; //3
-		this.birth = birth; //4
-		this.death = death; //5
-		this.age = age; //6
-		this.address = address; //7
-		this.contact = contact; //8
-		this.relatives = relatives; //9
-		this.personInfo = personInfo; //10
+		this.ssn = ssn; //4
+		this.nationality = nationality; //5
+
+		this.address = address; //6
+		this.contact = contact; //7
+		this.parents = parents; //8
+		this.personMore = personMore; //9
 		
 		
 	}
@@ -47,11 +47,11 @@ public class Person {
 	}
 
 	public String getFirstname() {
-		return firstname;
+		return firstnames;
 	}
 
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+		this.firstnames = firstname;
 	}
 
 	public String getLastname() {
@@ -62,45 +62,18 @@ public class Person {
 		this.lastname = lastname;
 	}
 
-	public Date getBirth() {
-		return birth;
-	}
 
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
-
-	public Date getDeath() {
-		return death;
-	}
-
-	public void setDeath(Date death) {
-		this.death = death;
+	public String getSsn() {
+		return ssn;
 	}
 	
-	public boolean isValid() {
-	        if (birth != null && death != null) {
-	            return birth.before(death);
-	        }
-	        return false; 
-	    }
-
-	public int calculateAge() {
-		    if (birth == null) {
-		        return 0;
-		    }
-
-		    LocalDate birthDate = birth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		    LocalDate currentDate = LocalDate.now();
-		    Period period = Period.between(birthDate, currentDate);
-
-		    return period.getYears();
-		}
-
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
+	}
 	
-	public int getAge() {
-        return calculateAge();
-    }
+	public String getNationality() {
+		return nationality;
+	}
 	public Address getAddress() {
 		return address;
 	}
@@ -113,20 +86,23 @@ public class Person {
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	public Relatives getRelatives() {
-		return relatives;
+	public Parents getParents() {
+		return parents;
 	}
-	public void setRelatives(Relatives relatives) {
-		this.relatives = relatives;
+	public void setParents(Parents parents) {
+		this.parents = parents;
 	}
-	public PersonInfo getPersonInfo() {
-		return personInfo;
+	public PersonMore getPersonMore() {
+		return personMore;
 	}
-	public void setPersonInfo(PersonInfo personInfo) {
-		this.personInfo = personInfo;
+	public void setPersonInfo(PersonMore personMore) {
+		this.personMore = personMore;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	
+	
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 	
 	
