@@ -89,7 +89,7 @@ public class PersonControllerTest {
 		  
 	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L)
 	              .contentType(MediaType.APPLICATION_JSON))
-	              .andExpect(MockMvcResultMatchers.status().isNoContent());
+	              .andExpect(MockMvcResultMatchers.status().isOk());
 	  }
 
 	  

@@ -97,7 +97,7 @@ public class PersonController {
 	public ResponseEntity<Void>deletePerson(@PathVariable Long id) {
 		boolean deleted = personService.deletePerson(id);
 		 if (deleted) {
-	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	            return new ResponseEntity<>(HttpStatus.OK);
 	        } else {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
