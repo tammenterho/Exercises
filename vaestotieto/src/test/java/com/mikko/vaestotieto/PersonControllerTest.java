@@ -2,6 +2,8 @@ package com.mikko.vaestotieto;
 
 
 
+import static org.mockito.Mockito.when;
+
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,6 +24,7 @@ import com.mikko.vaestotieto.entities.Parents;
 import com.mikko.vaestotieto.entities.Permits;
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.entities.PersonMore;
+import com.mikko.vaestotieto.services.PersonService;
 
 
 @SpringBootTest
@@ -35,6 +38,8 @@ public class PersonControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
+	@MockBean
+	private PersonService personService;
 
 	
 	@Test
@@ -77,9 +82,14 @@ public class PersonControllerTest {
 	  
 	  @Test
 	  public void testDeletePerson() throws Exception {
-	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11)
+		  Person person = new Person();
+	        person.setId(11L);
+	        
+	        when(personService.deletePerson(11L)).thenReturn(true);
+		  
+	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L)
 	              .contentType(MediaType.APPLICATION_JSON))
-	              .andExpect(MockMvcResultMatchers.status().isOk());
+	              .andExpect(MockMvcResultMatchers.status().isNoContent());
 	  }
 
 	  

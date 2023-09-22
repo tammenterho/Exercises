@@ -69,6 +69,7 @@ public class PersonController {
 		}
 	}
 	
+	
 	// PUT - UPDATE EMAIL - DEPENDS ON FORM - POSSIBLY LANGUAGE AND NUMBER ASWELL
 	@PutMapping("/{id}/email")
 	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
