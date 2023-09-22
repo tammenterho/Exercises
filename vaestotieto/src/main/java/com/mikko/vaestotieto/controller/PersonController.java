@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Person;
+import com.mikko.vaestotieto.services.AddressService;
 import com.mikko.vaestotieto.services.PersonService;
 
 @RestController
@@ -23,10 +24,12 @@ import com.mikko.vaestotieto.services.PersonService;
 public class PersonController {
 
 	private final PersonService personService;
+	private final AddressService addressService;
 	
 	@Autowired
-	public PersonController (PersonService personService) {
+	public PersonController (PersonService personService, AddressService addressService) {
 		this.personService = personService;
+		this.addressService = addressService;
 	}
 	
 	// GET ALL
@@ -73,21 +76,15 @@ public class PersonController {
 	// PUT - UPDATE EMAIL - DEPENDS ON FORM - POSSIBLY LANGUAGE AND NUMBER ASWELL
 	@PutMapping("/{id}/email")
 	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
-	    Person existingPerson = personService.getPersonById(id);
+	    Person updatedPerson = addressService.updateEmail(id, newEmail);
 	    
-	    if (existingPerson != null) {
-	        Address personAddress = existingPerson.getAddress(); 
-	        if (personAddress != null) {
-	            personAddress.setEmail(newEmail); 
-	            Person updatedPerson = personService.updatePerson(id, existingPerson);
-	            return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	        }
+	    if (updatedPerson != null) {
+	        return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
 	    } else {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+
 
 
 

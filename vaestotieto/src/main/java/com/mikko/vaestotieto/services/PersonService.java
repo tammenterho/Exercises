@@ -44,15 +44,7 @@ public class PersonService {
 		return null;
 	}
 	
-	public Person updateEmail(Long id, String newEmail) {
-		for (Person person : persons) {
-			if (person.getId().equals(id)) {
-				person.getAddress().setEmail(newEmail);
-				return person;
-			}
-	}
-		return null;
-	}
+	
 	
 	
 	public boolean deletePerson(Long id) {

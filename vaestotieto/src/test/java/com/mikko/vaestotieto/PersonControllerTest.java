@@ -24,6 +24,7 @@ import com.mikko.vaestotieto.entities.Parents;
 import com.mikko.vaestotieto.entities.Permits;
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.entities.PersonMore;
+import com.mikko.vaestotieto.services.AddressService;
 import com.mikko.vaestotieto.services.PersonService;
 
 
@@ -40,6 +41,8 @@ public class PersonControllerTest {
 	
 	@MockBean
 	private PersonService personService;
+	@MockBean
+	private AddressService addressService;
 
 	
 	@Test
@@ -90,5 +93,20 @@ public class PersonControllerTest {
 	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L)
 	              .contentType(MediaType.APPLICATION_JSON))
 	              .andExpect(MockMvcResultMatchers.status().isOk());
-	  }	  
+	  }
+	  
+	  @Test
+	  public void testUpdateEmail() throws Exception {
+		  Person person = new Person();
+		  person.setId(11L);
+		  person.getAddress().setEmail("jussi.jussinen@gmail.com");
+		  
+		  when(addressService.updateEmail(11L, "matti.mattinen@gmail.com")).thenReturn(person);
+		  
+		  mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}/email", 11L)
+	              .contentType(MediaType.APPLICATION_JSON))
+	              .andExpect(MockMvcResultMatchers.status().isOk());
+		  
+		  
+	  }
 }
