@@ -85,14 +85,10 @@ public class PersonControllerTest {
 		  Person person = new Person();
 	        person.setId(11L);
 	        
-	        when(personService.deletePerson(11L)).thenReturn(true);
+	      when(personService.deletePerson(11L)).thenReturn(true);
 		  
 	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L)
 	              .contentType(MediaType.APPLICATION_JSON))
 	              .andExpect(MockMvcResultMatchers.status().isOk());
-	  }
-
-	  
-	
-	  
+	  }	  
 }
