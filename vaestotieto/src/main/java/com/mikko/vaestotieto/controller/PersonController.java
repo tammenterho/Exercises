@@ -50,6 +50,24 @@ public class PersonController {
 		}	
 	}
 	
+	@GetMapping("/{firstNames}")
+	public ResponseEntity<List<Person>>getPersonByFirstname(@PathVariable String firstNames) {
+		List<Person> persons = personService.getPersonsByFirstName(firstNames);
+		if (persons != null) {
+			return new ResponseEntity<>(persons, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	} 
+	
+	@GetMapping("/{lastName}")
+	public ResponseEntity<List<Person>>getPersonByLastname(@PathVariable String lastName) {
+		List<Person> persons = personService.getPersonsByFirstName(lastName);
+		if (persons != null) {
+			return new ResponseEntity<>(persons, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	} 
+	
 	// POST - CREATE PERSON
 	@PostMapping("/")
 	public ResponseEntity<Person>createPerson(@RequestBody Person person) {
