@@ -3,6 +3,9 @@ package com.mikko.vaestotieto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -39,11 +42,30 @@ public class PersonServiceTest {
         assertEquals("John", result.getFirstnames());
     }
 
+    @Test
+    public void testGetPersonsByFirstName() {
+        
+        Person person1 = new Person();
+        person1.setId(1L);
+        person1.setFirstnames("John");
 
-  
-    
- 
+        Person person2 = new Person();
+        person2.setId(2L);
+        person2.setFirstnames("Jane");
 
+        List<Person> mockPersons = new ArrayList<>();
+        mockPersons.add(person1);
+        mockPersons.add(person2);
 
+       
+        when(personService.getPersonsByFirstName("John")).thenReturn(mockPersons);
+
+        
+        List<Person> result = personService.getPersonsByFirstName("John");
+       
+        assertEquals(2, result.size());
+        assertEquals("John", result.get(0).getFirstnames());
+        assertEquals("Jane", result.get(1).getFirstnames());
+    }
 }
 

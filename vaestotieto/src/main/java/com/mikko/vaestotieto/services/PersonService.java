@@ -1,6 +1,7 @@
 package com.mikko.vaestotieto.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,17 @@ public class PersonService {
 		return false;
 	
 	}
+	
+	public List<Person> getPersonsByFirstName(String firstName) {
+        return persons.stream()
+                .filter(person -> person.getFirstnames().equalsIgnoreCase(firstName))
+                .collect(Collectors.toList());
+    }
 
+  
+    public List<Person> getPersonsByLastName(String lastName) {
+        return persons.stream()
+                .filter(person -> person.getLastname().equalsIgnoreCase(lastName))
+                .collect(Collectors.toList());
+        }
 }
