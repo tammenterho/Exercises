@@ -249,7 +249,7 @@ public class PersonControllerTest {
 	      
 	      System.out.println("tässä henkilöt" + objectMapper.writeValueAsString(persons));
 
-	      when(personService.getPersonsByLastName(person.getLastnames())).thenReturn(persons);
+	      when(personService.getPersonsByLastName(person2.getLastnames())).thenReturn(persons);
 
 	      mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen")
 	              .contentType(MediaType.APPLICATION_JSON))
