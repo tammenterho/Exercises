@@ -7,8 +7,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -205,6 +208,28 @@ public class PersonControllerTest {
 
 	      
 	      assertEquals(newEmail, person.getAddress().getEmail());
+	  }
+	  
+	  @Test
+	  public void testGetByFirstName() throws Exception {
+	      Person person = new Person();
+	      Person person2 = new Person();
+	      person.setFirstnames("Matti");
+	      person.setLastname("Mattilainen");
+	      person2.setFirstnames("Liisa");
+	      person2.setLastname("Liisalainen");
+
+	      List<Person> persons = new ArrayList<>();
+	      persons.add(person);
+	      persons.add(person2);
+
+	      when(personService.getPersonsByFirstName(person.getFirstnames())).thenReturn(persons);
+
+	      mockMvc.perform(MockMvcRequestBuilders.get("/persons/firstname/{firstNames}", "Matti")
+	              .contentType(MediaType.APPLICATION_JSON))
+	              .andExpect(MockMvcResultMatchers.status().isOk());
+	      
+	     
 	  }
 
 
