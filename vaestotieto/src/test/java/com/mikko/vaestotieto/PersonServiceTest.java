@@ -67,5 +67,32 @@ public class PersonServiceTest {
         assertEquals("John", result.get(0).getFirstnames());
         assertEquals("Jane", result.get(1).getFirstnames());
     }
+    
+    @Test
+    public void testGetPersonsByLastName() {
+      
+        Person person1 = new Person();
+        person1.setId(1L);
+        person1.setLastname("Doe");
+
+        Person person2 = new Person();
+        person2.setId(2L);
+        person2.setLastname("Smith");
+
+        List<Person> mockPersons = new ArrayList<>();
+        mockPersons.add(person1);
+        mockPersons.add(person2);
+
+    
+        when(personService.getPersonsByLastName("Doe")).thenReturn(mockPersons);
+
+        
+        List<Person> result = personService.getPersonsByLastName("Doe");
+
+       
+        assertEquals(2, result.size());
+        assertEquals("Doe", result.get(0).getLastname());
+        assertEquals("Smith", result.get(1).getLastname());
+    }
 }
 

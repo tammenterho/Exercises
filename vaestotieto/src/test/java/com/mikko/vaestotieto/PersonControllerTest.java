@@ -2,6 +2,8 @@ package com.mikko.vaestotieto;
 
 
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 
@@ -98,7 +100,7 @@ public class PersonControllerTest {
 	              .andExpect(MockMvcResultMatchers.status().isOk());
 	  }
 	  
-	  /*
+	 
 	  
 	  @Test
 	  public void testUpdatePerson() throws Exception {
@@ -160,11 +162,12 @@ public class PersonControllerTest {
 	        Permits permits2 = new Permits(false, true, false, false, true);
 	        updatedPerson.setPermits(permits2);
 	        
+	        // https://stackoverflow.com/questions/72241095/spring-mvc-controller-testing-put
+	        when(personService.updatePerson(eq(updatedPerson.getId()), any())).thenReturn(updatedPerson);
 	        
-	        when(personService.updatePerson(11L, updatedPerson)).thenReturn(updatedPerson);
 	        System.out.println("Before put: " + objectMapper.writeValueAsString(updatedPerson));
 	        
-	        mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}", 11L)
+	        mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}", 11L, updatedPerson)
 	                .content(objectMapper.writeValueAsString(updatedPerson))
 	                .contentType(MediaType.APPLICATION_JSON))
 	                .andExpect(MockMvcResultMatchers.status().isOk());
@@ -189,5 +192,5 @@ public class PersonControllerTest {
 	              .contentType(MediaType.APPLICATION_JSON))
 	              .andExpect(MockMvcResultMatchers.status().isOk());
 	  }
-*/
+
 }
