@@ -2,6 +2,7 @@ package com.mikko.vaestotieto;
 
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -179,18 +180,32 @@ public class PersonControllerTest {
 	  
 	  @Test
 	  public void testUpdateEmail() throws Exception {
+	      
 	      Date date = new Date(120, 0, 11);
 	      Person person = new Person();
 	      Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234");
 	      person.setId(11L);
 	      person.setAddress(address);
 
-	      when(addressService.updateEmail(11L, "matti.mattinen@gmail.com")).thenReturn(person);
+	      
+	      String newEmail = "juusojuusonen@gmail.com";
+	      person.getAddress().setEmail(newEmail);
+	      
+	      when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person);
+	      
+	      //System.out.println("After when: " + objectMapper.writeValueAsString(person));
 
-	      mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}/email", 11L)
-	              .param("newEmail", "matti.mattinen@gmail.com")
+	    
+	      mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}/email", 11L, newEmail)
+	    		  .content(objectMapper.writeValueAsString(newEmail))
 	              .contentType(MediaType.APPLICATION_JSON))
 	              .andExpect(MockMvcResultMatchers.status().isOk());
+	      
+	      System.out.println("After put email: " + objectMapper.writeValueAsString(person));
+
+	      
+	      assertEquals(newEmail, person.getAddress().getEmail());
 	  }
+
 
 }
