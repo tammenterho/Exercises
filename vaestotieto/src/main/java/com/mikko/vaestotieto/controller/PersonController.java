@@ -108,8 +108,8 @@ public class PersonController {
 	    if (existingPerson != null) {
 	        Address personAddress = existingPerson.getAddress(); 
 	        if (personAddress != null) {
-	            personAddress.setEmail(null); 
-	            Person updatedPerson = personService.updatePerson(id, existingPerson);
+	            
+	            addressService.deleteEmail(id);
 	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	        } else {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -118,5 +118,6 @@ public class PersonController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+
 
 }
