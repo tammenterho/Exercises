@@ -65,7 +65,7 @@ public class PersonControllerTest {
 	    public void testCreatePerson() throws Exception {
 	        Person person = new Person();
 	        person.setFirstnames("Juuso Olavi");
-	        person.setLastname("Testinen");
+	        person.setLastnames("Testinen");
 	        person.setSsn("222222-123R");
 	        person.setNationality("Finland");
 	        person.setNationality("Finnish");
@@ -112,7 +112,7 @@ public class PersonControllerTest {
 		  Person person = new Person();
 		  	person.setId(11L);
 	        person.setFirstnames("Juuso Olavi");
-	        person.setLastname("Testinen");
+	        person.setLastnames("Testinen");
 	        person.setSsn("222222-123R");
 	        person.setNationality("Finland");
 	        person.setNationality("Finnish");
@@ -146,7 +146,7 @@ public class PersonControllerTest {
 	        Person updatedPerson = new Person();
 	        updatedPerson.setId(11L);
 	        updatedPerson.setFirstnames("Juuso Matti");
-	        updatedPerson.setLastname("Testinen");
+	        updatedPerson.setLastnames("Testinen");
 	        updatedPerson.setSsn("222222-123R");
 	        updatedPerson.setNationality("Poland");
 	        updatedPerson.setNationality("Finnish");
@@ -215,9 +215,9 @@ public class PersonControllerTest {
 	      Person person = new Person();
 	      Person person2 = new Person();
 	      person.setFirstnames("Matti");
-	      person.setLastname("Mattilainen");
+	      person.setLastnames("Mattilainen");
 	      person2.setFirstnames("Liisa");
-	      person2.setLastname("Liisalainen");
+	      person2.setLastnames("Liisalainen");
 
 	      List<Person> persons = new ArrayList<>();
 	      persons.add(person);
@@ -231,6 +231,29 @@ public class PersonControllerTest {
 	      
 	     
 	  }
+	  
+	  @Test
+	  public void testGetByLastName() throws Exception {
+	      Person person = new Person();
+	      Person person2 = new Person();
+	      person.setFirstnames("Matti");
+	      person.setLastnames("Mattilainen");
+	      person2.setFirstnames("Liisa");
+	      person2.setLastnames("Liisalainen");
+	      
+	      
 
+	      List<Person> persons = new ArrayList<>();
+	      persons.add(person);
+	      persons.add(person2);
+	      
+	      System.out.println("tässä henkilöt" + objectMapper.writeValueAsString(persons));
+
+	      when(personService.getPersonsByLastName(person.getLastnames())).thenReturn(persons);
+
+	      mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen")
+	              .contentType(MediaType.APPLICATION_JSON))
+	              .andExpect(MockMvcResultMatchers.status().isOk());
+	  }
 
 }

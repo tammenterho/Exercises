@@ -6,7 +6,7 @@ package com.mikko.vaestotieto.entities;
 public class Person {
 	private Long id;
 	private String firstnames;
-	private String lastname;
+	private String lastNames;
 	private String ssn; 
 	private String nationality; 
 
@@ -16,10 +16,10 @@ public class Person {
 	private Permits permits;
 
 	
-	public Person (Long id, String firstnames, String lastname, String ssn, String nationality, Address address, Parents parents, PersonMore personMore, Permits permits) {
+	public Person (Long id, String firstnames, String lastNames, String ssn, String nationality, Address address, Parents parents, PersonMore personMore, Permits permits) {
 		this.id = id; //1
 		this.firstnames = firstnames; //2
-		this.lastname = lastname; //3
+		this.lastNames = lastNames; //3
 		this.ssn = ssn; //4
 		this.nationality = nationality; //5
 
@@ -52,12 +52,12 @@ public class Person {
 	}
 
 
-	public String getLastname() {
-		return lastname;
+	public String getLastnames() {
+		return lastNames;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastnames(String lastname) {
+		this.lastNames = lastname;
 	}
 
 

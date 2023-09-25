@@ -73,11 +73,11 @@ public class PersonServiceTest {
       
         Person person1 = new Person();
         person1.setId(1L);
-        person1.setLastname("Doe");
+        person1.setLastnames("Doe");
 
         Person person2 = new Person();
         person2.setId(2L);
-        person2.setLastname("Smith");
+        person2.setLastnames("Smith");
 
         List<Person> mockPersons = new ArrayList<>();
         mockPersons.add(person1);
@@ -91,8 +91,8 @@ public class PersonServiceTest {
 
        
         assertEquals(2, result.size());
-        assertEquals("Doe", result.get(0).getLastname());
-        assertEquals("Smith", result.get(1).getLastname());
+        assertEquals("Doe", result.get(0).getLastnames());
+        assertEquals("Smith", result.get(1).getLastnames());
     }
     
     

@@ -51,8 +51,8 @@ public class PersonController {
 	}
 	
 	@GetMapping("/firstname/{firstNames}")
-	public ResponseEntity<List<Person>> getPersonByFirstname(@PathVariable String firstNames) {
-	    List<Person> persons = personService.getPersonsByFirstName(firstNames);
+	public ResponseEntity<List<Person>> getPersonByFirstname(@PathVariable("firstNames") String firstnames) {
+	    List<Person> persons = personService.getPersonsByFirstName(firstnames);
 	    if (!persons.isEmpty()) {
 	        return new ResponseEntity<>(persons, HttpStatus.OK);
 	    }
@@ -60,10 +60,10 @@ public class PersonController {
 	}
 
 	
-	@GetMapping("/lastname/{lastName}")
-	public ResponseEntity<List<Person>>getPersonByLastname(@PathVariable String lastName) {
-		List<Person> persons = personService.getPersonsByFirstName(lastName);
-		if (persons != null) {
+	@GetMapping("/lastname/{lastNames}")
+	public ResponseEntity<List<Person>>getPersonByLastname(@PathVariable("lastNames") String lastNames) {
+		List<Person> persons = personService.getPersonsByLastName(lastNames);
+		if (!persons.isEmpty()) {
 			return new ResponseEntity<>(persons, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
