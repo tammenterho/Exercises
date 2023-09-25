@@ -58,15 +58,23 @@ public class PersonService {
 	}
 	
 	public List<Person> getPersonsByFirstName(String firstname) {
-        return persons.stream()
-                .filter(person -> person.getFirstnames().equalsIgnoreCase(firstname))
-                .collect(Collectors.toList());
+		List<Person> matchingFirstNames = persons.stream()
+	            .filter(person -> person.getFirstnames().equalsIgnoreCase(firstname))
+	            .collect(Collectors.toList());
+
+		 int firstNameCount = matchingFirstNames.size(); // SIZE OF THE LIST
+
+	    return matchingFirstNames;
     }
 
   
     public List<Person> getPersonsByLastName(String lastname) {
-        return persons.stream()
+    	List<Person> matchingLastNames = persons.stream()
                 .filter(person -> person.getLastnames().equalsIgnoreCase(lastname))
                 .collect(Collectors.toList());
+    	
+    	int lastNameCount = matchingLastNames.size(); // SIZE OF THE LIST
+    	
+		return matchingLastNames;
         }
 }
