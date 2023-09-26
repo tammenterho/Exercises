@@ -18,6 +18,7 @@ import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.services.AddressService;
 import com.mikko.vaestotieto.services.PersonService;
+import com.mikko.vaestotieto.validators.EmailValidator;
 
 
 @RestController
@@ -73,8 +74,13 @@ public class PersonController {
 	// POST - CREATE PERSON
 	@PostMapping("/")
 	public ResponseEntity<Person>createPerson( @RequestBody Person person) {
+		if (EmailValidator.patternMatches(person.getAddress().getEmail(), "^(.+)@(\\S+)$")) {
 		Person newPerson = personService.createPerson(person);
-		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
+		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);}
+		else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		
 			
 		
