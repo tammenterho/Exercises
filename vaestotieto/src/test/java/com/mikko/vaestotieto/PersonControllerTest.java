@@ -71,7 +71,7 @@ public class PersonControllerTest {
 	        
 	        @SuppressWarnings("deprecation")
 			Date date = new Date(120, 0, 11);
-	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
+	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testiesimerkki.com", "+358 4001234" );
 	        person.setAddress(address);
 	        
 	        Parents parent1 = new Parents("Jussi", "Testinen", date);

@@ -2,6 +2,8 @@ package com.mikko.vaestotieto.entities;
 
 import java.util.Date;
 
+
+
 public class Address {
 	private String localAddress; //streetname and number
 	private String postal; // postal code and city
@@ -9,7 +11,7 @@ public class Address {
 	private int residents; // number of residents
 	private String municipality;
 	private Date movingInMunicipality; // a date when moved in to current municipality. tax related
-	private String turnYearMunicipality; // turn of the year municipalit decides tax municipality
+	private String turnYearMunicipality; // turn of the year municipality decides tax municipality
 	private String email;
 	private String phone;
 	

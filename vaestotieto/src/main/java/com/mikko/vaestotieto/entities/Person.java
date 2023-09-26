@@ -2,7 +2,6 @@ package com.mikko.vaestotieto.entities;
 
 
 
-
 public class Person {
 	private Long id;
 	private String firstnames;

@@ -1,6 +1,7 @@
 package com.mikko.vaestotieto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.services.PersonService;
+import com.mikko.vaestotieto.validators.EmailValidator;
 
 public class PersonServiceTest {
 
@@ -94,6 +96,13 @@ public class PersonServiceTest {
         assertEquals(2, result.size());
         assertEquals("Doe", result.get(0).getLastnames());
         assertEquals("Smith", result.get(1).getLastnames());
+    }
+    
+    @Test
+    public void testUsingSimpleRegex() {
+        String emailAddress = "username@domain.com";
+        String regexPattern = "^(.+)@(\\S+)$";
+        assertTrue(EmailValidator.patternMatches(emailAddress, regexPattern));
     }
     
     
