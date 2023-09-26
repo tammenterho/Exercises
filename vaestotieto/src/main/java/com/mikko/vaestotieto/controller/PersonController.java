@@ -121,16 +121,19 @@ public class PersonController {
 	     }
 	}
 	
-	// DELETE - EMAIL
 	@DeleteMapping("/{id}/email")
 	public ResponseEntity<Void> deleteEmail(@PathVariable Long id) {
 	    Person existingPerson = personService.getPersonById(id);
-	    
+
 	    if (existingPerson != null) {
-	        Address personAddress = existingPerson.getAddress(); 
+	        Address personAddress = existingPerson.getAddress();
 	        if (personAddress != null) {
-	            addressService.deleteEmail(id);
-	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	            Person updatedPerson = addressService.deleteEmail(id);
+	            if (updatedPerson != null) {
+	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	            } else {
+	                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	            }
 	        } else {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
@@ -138,4 +141,6 @@ public class PersonController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+
+
 }

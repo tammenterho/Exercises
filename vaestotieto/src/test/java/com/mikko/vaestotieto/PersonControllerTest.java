@@ -80,18 +80,6 @@ public class PersonControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 	
-	// TESTING DELETING PERSON "/persons/{id}"
-	@Test
-	public void testDeletePerson() throws Exception {
-		Person person = new Person();
-		person.setId(11L);
-
-		when(personService.deletePerson(11L)).thenReturn(true);
-
-		mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L).contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
-	
 	// TESTING UPDATE PERSON. 1. CREATING PERSON 2. MODIFYING FIELDS
 	@Test 
 	public void testUpdatePerson() throws Exception {
@@ -153,7 +141,7 @@ public class PersonControllerTest {
 		updatedPerson.setPermits(permits2);
 
 		// https://stackoverflow.com/questions/72241095/spring-mvc-controller-testing-put
-		when(personService.updatePerson(eq(updatedPerson.getId()), any())).thenReturn(updatedPerson);
+		when(personService.updatePerson(eq(updatedPerson.getId()), any())).thenReturn(updatedPerson); // PERSONSERVICE
 
 		// System.out.println("Before put: " + objectMapper.writeValueAsString(updatedPerson));
 
@@ -162,7 +150,18 @@ public class PersonControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk());
 
 		// System.out.println("After put: " + objectMapper.writeValueAsString(updatedPerson));
-
+	}
+	
+	// TESTING DELETING PERSON "/persons/{id}"
+	@Test
+	public void testDeletePerson() throws Exception {
+		Person person = new Person();
+		person.setId(11L);
+		
+		when(personService.deletePerson(11L)).thenReturn(true);
+		
+		mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 	
 	// TESTING UPDATING EMAIL - VALIDATION INCLUDED IN CONTROLLER - SERVICE CLASS TESTING AND CONTROLLER TESTING /persons/{id}/email
@@ -179,7 +178,7 @@ public class PersonControllerTest {
 		String newEmail = "juusojuusonen@gmail.com";
 		person.getAddress().setEmail(newEmail);
 
-		when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person);
+		when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person); // ADDRESSSERVICE
 
 		// System.out.println("After when: " + objectMapper.writeValueAsString(person));
 
@@ -201,16 +200,16 @@ public class PersonControllerTest {
 		person.setLastNames("Mattilainen");
 		person2.setFirstnames("Liisa");
 		person2.setLastNames("Liisalainen");
-
+		
 		List<Person> persons = new ArrayList<>();
 		persons.add(person);
 		persons.add(person2);
-
+		
 		when(personService.getPersonsByFirstName(person.getFirstnames())).thenReturn(persons);
-
+		
 		mockMvc.perform(MockMvcRequestBuilders.get("/persons/firstname/{firstNames}", "Matti")
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
-
+		
 	}
 	
 	// TESTING GET BY LASTNAME - TESTING SERVICE AND CONTROLLER /persons/lastname/{lastName}
@@ -222,17 +221,32 @@ public class PersonControllerTest {
 		person.setLastNames("Mattilainen");
 		person2.setFirstnames("Liisa");
 		person2.setLastNames("Liisalainen");
-
+		
 		List<Person> persons = new ArrayList<>();
 		persons.add(person);
 		persons.add(person2);
-
+		
 		// System.out.println("tässä henkilöt" + objectMapper.writeValueAsString(persons));
-
+		
 		when(personService.getPersonsByLastName(person2.getLastNames())).thenReturn(persons);
-
+		
 		mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen") // if trying to find Mattilainen then correct above person2.getLastNames > person.getLastNames
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	public void testDeleteEmail() throws Exception {
+	    Person person = new Person();
+	    Date date = new Date(120, 0, 11);
+	    Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku",
+	            "juuso.testi@esimerkki.com", "+358 4001234");
+	    person.setId(11L);
+	    
+	    when(addressService.deleteEmail(eq(person.getId()))).thenReturn(null); // should return null
+	    
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}/email", 11L)
+	            .contentType(MediaType.APPLICATION_JSON))
+	            .andExpect(MockMvcResultMatchers.status().isNotFound()); // waiting for 404 because no email after delete
 	}
 
 }
