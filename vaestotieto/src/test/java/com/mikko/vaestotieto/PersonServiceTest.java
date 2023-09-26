@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -188,9 +189,7 @@ public class PersonServiceTest {
 	    assertTrue(isDeleted);
 	}
 	
-	// EMAIL
-	
-	
+	// TEST DELETE EMAIL
 	@Test
 	public void testDeleteEmail() {
 	   
@@ -215,16 +214,35 @@ public class PersonServiceTest {
 	    assertNull(deletedPerson.getAddress().getEmail());
 	}
 
+	// TEST UPDATE EMAIL
+	@Test
+	public void testUpdateEmail() {
+	  
+	    Person originalPerson = new Person();
+	    originalPerson.setId(1L);
+	    Address address = new Address();
+	    address.setEmail("joni@example.com");
+	    originalPerson.setAddress(address);
 
+	    when(addressService.updateEmail(eq(originalPerson.getId()), anyString())).thenAnswer(invocation -> {
+	        String newEmail = invocation.getArgument(1); // second argument is the new email
+	        Person updatedPerson = new Person();
+	        updatedPerson.setId(originalPerson.getId());
+	        address.setEmail(newEmail);
+	        updatedPerson.setAddress(address);
+	        return updatedPerson;
+	    });
 
+	    String newEmail = "new.email@example.com";
+	    Person returnedPerson = addressService.updateEmail(1L, newEmail);
+	    
+	    System.out.println("Returned Person: " + returnedPerson.toString());
 
+	    assertEquals(1L, returnedPerson.getId());
+	    assertEquals(newEmail, returnedPerson.getAddress().getEmail());
+	    
+	}
 
-
-
-
-	
-	
-	
 	// TEST EMAIL VALIDATION
 	@Test
 	public void testUsingSimpleRegex() {
