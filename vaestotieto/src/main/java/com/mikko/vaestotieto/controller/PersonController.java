@@ -102,6 +102,8 @@ public class PersonController {
 	// PUT - UPDATE EMAIL - DEPENDS ON FORM - POSSIBLY LANGUAGE AND NUMBER ASWELL
 	@PutMapping("/{id}/email")
 	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody  String newEmail) {
+		if (EmailValidator.patternMatches(newEmail, "^(.+)@(\\S+)$")) {
+		
 	    Person updatedPerson = addressService.updateEmail(id, newEmail);
 	    
 	    if (updatedPerson != null) {
@@ -109,6 +111,10 @@ public class PersonController {
 	    } else {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
+	} else {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
 	}
 
 
