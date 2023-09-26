@@ -119,7 +119,40 @@ public class PersonServiceTest {
 		assertEquals("Doe", result.get(0).getLastNames());
 		assertEquals("Smith", result.get(1).getLastNames());
 	}
-
+	
+	// TEST CREATE PERSON
+	@Test
+	public void testCreatePerson () {
+		
+		Person person1 = new Person();
+		person1.setId(1L);
+		person1.setFirstnames("Joni");
+		person1.setLastNames("Joninen");
+		
+		when(personService.createPerson(person1)).thenReturn(person1);
+		
+		Person createdPerson = personService.createPerson(person1);
+		
+		assertEquals(person1, createdPerson);
+		
+	}
+	
+	// TEST UPDATE PERSON
+	@Test
+	public void testUpdatePerson () {
+		
+	}
+	
+	// TEST DELETE PERSON
+	@Test
+	public void testDeletePerson () {
+			
+	}
+	
+	
+	
+	// EMAIL
+	
 	// TEST EMAIL VALIDATION
 	@Test
 	public void testUsingSimpleRegex() {
