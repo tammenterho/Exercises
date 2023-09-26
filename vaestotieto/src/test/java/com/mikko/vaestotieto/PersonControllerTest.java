@@ -1,7 +1,5 @@
 package com.mikko.vaestotieto;
 
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -31,229 +29,210 @@ import com.mikko.vaestotieto.entities.PersonMore;
 import com.mikko.vaestotieto.services.AddressService;
 import com.mikko.vaestotieto.services.PersonService;
 
-
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PersonControllerTest {
-	
 
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	private ObjectMapper objectMapper;
-	
+
 	@MockBean
 	private PersonService personService;
 	@MockBean
 	private AddressService addressService;
 
-	
 	@Test
 	public void testGetAllPersons() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/persons/")
-		.contentType(MediaType.APPLICATION_JSON))
-		.andExpect(MockMvcResultMatchers.status().isOk());
+		mockMvc.perform(MockMvcRequestBuilders.get("/persons/").contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 	
-	  @Test
-	    public void testCreatePerson() throws Exception {
-	        Person person = new Person();
-	        person.setFirstnames("Juuso Olavi");
-	        person.setLastnames("Testinen");
-	        person.setSsn("222222-123R");
-	        person.setNationality("Finland");
-	        person.setNationality("Finnish");
-	        
-	        PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
-	        person.setPersonMore(personMore);
-	        
-	        @SuppressWarnings("deprecation")
-			Date date = new Date(120, 0, 11);
-	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" ); // will fail if email doesn't have @
-	        person.setAddress(address);
-	        
-	        Parents parent1 = new Parents("Jussi", "Testinen", date);
-	        Parents parent2 = new Parents("Liisa", "Testinen", date);
-	        
-	        person.setParents(parent2, parent1);
-	        
-	        Permits permits = new Permits(false, true, false, false, true);
-	        person.setPermits(permits);
-	       
+	// TESTING POST /persons - FILLING FIELDS
+	@Test
+	public void testCreatePerson() throws Exception {
+		Person person = new Person();
+		person.setFirstnames("Juuso Olavi");
+		person.setLastNames("Testinen");
+		person.setSsn("222222-123R");
+		person.setNationality("Finland");
+		person.setNationality("Finnish");
 
-	        mockMvc.perform(MockMvcRequestBuilders.post("/persons/")
-	                .content(objectMapper.writeValueAsString(person))
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(MockMvcResultMatchers.status().isCreated());
-	    }
-	  
-	  @Test
-	  public void testDeletePerson() throws Exception {
-		  Person person = new Person();
-	        person.setId(11L);
-	        
-	      when(personService.deletePerson(11L)).thenReturn(true);
-		  
-	      mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L)
-	              .contentType(MediaType.APPLICATION_JSON))
-	              .andExpect(MockMvcResultMatchers.status().isOk());
-	  }
-	  
-	 
-	  
-	  @Test
-	  public void testUpdatePerson() throws Exception {
-		  // CREATE A PERSON
-		  Person person = new Person();
-		  	person.setId(11L);
-	        person.setFirstnames("Juuso Olavi");
-	        person.setLastnames("Testinen");
-	        person.setSsn("222222-123R");
-	        person.setNationality("Finland");
-	        person.setNationality("Finnish");
-	        
-	        PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
-	        person.setPersonMore(personMore);
-	        
-	        @SuppressWarnings("deprecation")
-			Date date = new Date(120, 0, 11);
-	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
-	        person.setAddress(address);
-	        
-	        Parents parent1 = new Parents("Jussi", "Testinen", date);
-	        Parents parent2 = new Parents("Liisa", "Testinen", date);
-	        
-	        person.setParents(parent2, parent1);
-	        
-	        Permits permits = new Permits(false, true, false, false, true);
-	        person.setPermits(permits);
-	       
-	        
-	        
-	        mockMvc.perform(MockMvcRequestBuilders.post("/persons/")
-	                .content(objectMapper.writeValueAsString(person))
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(MockMvcResultMatchers.status().isCreated());
-	        
-	        System.out.println("after post: " + objectMapper.writeValueAsString(person));
-	        
-	        // UPDATE PERSON
-	        
-	        Person updatedPerson = new Person();
-	        updatedPerson.setId(11L);
-	        updatedPerson.setFirstnames("Juuso Matti");
-	        updatedPerson.setLastnames("Testinen");
-	        updatedPerson.setSsn("222222-123R");
-	        updatedPerson.setNationality("Poland");
-	        updatedPerson.setNationality("Finnish");
-	        
-	        PersonMore personMore2 = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
-	        updatedPerson.setPersonMore(personMore2);
-	        
-	        @SuppressWarnings("deprecation")
-			Date date2 = new Date(120, 0, 11);
-	        Address address2 = new Address ("Tuureporinkatu 15 b", "20100 Turku", date2, 2, "Turku", date2, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
-	        updatedPerson.setAddress(address2);
-	        
-	        Parents parent3 = new Parents("Jussi", "Testinen", date);
-	        Parents parent4 = new Parents("Liisa", "Testinen", date);
-	        
-	        updatedPerson.setParents(parent4, parent3);
-	        
-	        Permits permits2 = new Permits(false, true, false, false, true);
-	        updatedPerson.setPermits(permits2);
-	        
-	        // https://stackoverflow.com/questions/72241095/spring-mvc-controller-testing-put
-	        when(personService.updatePerson(eq(updatedPerson.getId()), any())).thenReturn(updatedPerson);
-	        
-	        System.out.println("Before put: " + objectMapper.writeValueAsString(updatedPerson));
-	        
-	        mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}", 11L, updatedPerson)
-	                .content(objectMapper.writeValueAsString(updatedPerson))
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(MockMvcResultMatchers.status().isOk());
-	        
-	        System.out.println("After put: " + objectMapper.writeValueAsString(updatedPerson));
-	        
-	        
-	  }
-	  
-	  @Test
-	  public void testUpdateEmail() throws Exception {
-	      
-	      @SuppressWarnings("deprecation")
+		PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
+		person.setPersonMore(personMore);
+
+		@SuppressWarnings("deprecation")
 		Date date = new Date(120, 0, 11);
-	      Person person = new Person();
-	      Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234");
-	      person.setId(11L);
-	      person.setAddress(address);
+		Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku",
+				"juuso.testi@esimerkki.com", "+358 4001234"); // will fail if email doesn't have @
+		person.setAddress(address);
 
-	      
-	      String newEmail = "juusojuusonen@gmail.com";
-	      person.getAddress().setEmail(newEmail);
-	      
-	      when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person);
-	      
-	      //System.out.println("After when: " + objectMapper.writeValueAsString(person));
+		Parents parent1 = new Parents("Jussi", "Testinen", date);
+		Parents parent2 = new Parents("Liisa", "Testinen", date);
+		person.setParents(parent2, parent1);
 
-	    
-	      mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}/email", 11L, newEmail)
-	    		  .content(objectMapper.writeValueAsString(newEmail))
-	              .contentType(MediaType.APPLICATION_JSON))
-	              .andExpect(MockMvcResultMatchers.status().isOk());
-	      
-	      System.out.println("After put email: " + objectMapper.writeValueAsString(person));
+		Permits permits = new Permits(false, true, false, false, true);
+		person.setPermits(permits);
 
-	      
-	      assertEquals(newEmail, person.getAddress().getEmail());
-	  }
-	  
-	  @Test
-	  public void testGetByFirstName() throws Exception {
-	      Person person = new Person();
-	      Person person2 = new Person();
-	      person.setFirstnames("Matti");
-	      person.setLastnames("Mattilainen");
-	      person2.setFirstnames("Liisa");
-	      person2.setLastnames("Liisalainen");
+		mockMvc.perform(MockMvcRequestBuilders.post("/persons/").content(objectMapper.writeValueAsString(person))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated());
+	}
+	
+	// TESTING DELETING PERSON "/persons/{id}"
+	@Test
+	public void testDeletePerson() throws Exception {
+		Person person = new Person();
+		person.setId(11L);
 
-	      List<Person> persons = new ArrayList<>();
-	      persons.add(person);
-	      persons.add(person2);
+		when(personService.deletePerson(11L)).thenReturn(true);
 
-	      when(personService.getPersonsByFirstName(person.getFirstnames())).thenReturn(persons);
+		mockMvc.perform(MockMvcRequestBuilders.delete("/persons/{id}", 11L).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	// TESTING UPDATE PERSON. 1. CREATING PERSON 2. MODIFYING FIELDS
+	@Test 
+	public void testUpdatePerson() throws Exception {
+		// CREATE A PERSON
+		Person person = new Person();
+		person.setId(11L);
+		person.setFirstnames("Juuso Olavi");
+		person.setLastNames("Testinen");
+		person.setSsn("222222-123R");
+		person.setNationality("Finland");
+		person.setNationality("Finnish");
 
-	      mockMvc.perform(MockMvcRequestBuilders.get("/persons/firstname/{firstNames}", "Matti")
-	              .contentType(MediaType.APPLICATION_JSON))
-	              .andExpect(MockMvcResultMatchers.status().isOk());
-	      
-	     
-	  }
-	  
-	  @Test
-	  public void testGetByLastName() throws Exception {
-	      Person person = new Person();
-	      Person person2 = new Person();
-	      person.setFirstnames("Matti");
-	      person.setLastnames("Mattilainen");
-	      person2.setFirstnames("Liisa");
-	      person2.setLastnames("Liisalainen");
-	      
-	      
+		PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
+		person.setPersonMore(personMore);
 
-	      List<Person> persons = new ArrayList<>();
-	      persons.add(person);
-	      persons.add(person2);
-	      
-	      System.out.println("tässä henkilöt" + objectMapper.writeValueAsString(persons));
+		@SuppressWarnings("deprecation")
+		Date date = new Date(120, 0, 11);
+		Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku",
+				"juuso.testi@esimerkki.com", "+358 4001234");
+		person.setAddress(address);
 
-	      when(personService.getPersonsByLastName(person2.getLastnames())).thenReturn(persons);
+		Parents parent1 = new Parents("Jussi", "Testinen", date);
+		Parents parent2 = new Parents("Liisa", "Testinen", date);
 
-	      mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen")
-	              .contentType(MediaType.APPLICATION_JSON))
-	              .andExpect(MockMvcResultMatchers.status().isOk());
-	  }
+		person.setParents(parent2, parent1);
+
+		Permits permits = new Permits(false, true, false, false, true);
+		person.setPermits(permits);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/persons/").content(objectMapper.writeValueAsString(person))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated());
+
+		// System.out.println("after post: " + objectMapper.writeValueAsString(person));
+
+		// UPDATE PERSON
+		Person updatedPerson = new Person();
+		updatedPerson.setId(11L);
+		updatedPerson.setFirstnames("Juuso Matti");
+		updatedPerson.setLastNames("Testinen");
+		updatedPerson.setSsn("222222-123R");
+		updatedPerson.setNationality("Poland");
+		updatedPerson.setNationality("Finnish");
+
+		PersonMore personMore2 = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
+		updatedPerson.setPersonMore(personMore2);
+
+		@SuppressWarnings("deprecation")
+		Date date2 = new Date(120, 0, 11);
+		Address address2 = new Address("Tuureporinkatu 15 b", "20100 Turku", date2, 2, "Turku", date2, "Turku",
+				"juuso.testi@esimerkki.com", "+358 4001234");
+		updatedPerson.setAddress(address2);
+
+		Parents parent3 = new Parents("Jussi", "Testinen", date);
+		Parents parent4 = new Parents("Liisa", "Testinen", date);
+
+		updatedPerson.setParents(parent4, parent3);
+
+		Permits permits2 = new Permits(false, true, false, false, true);
+		updatedPerson.setPermits(permits2);
+
+		// https://stackoverflow.com/questions/72241095/spring-mvc-controller-testing-put
+		when(personService.updatePerson(eq(updatedPerson.getId()), any())).thenReturn(updatedPerson);
+
+		// System.out.println("Before put: " + objectMapper.writeValueAsString(updatedPerson));
+
+		mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}", 11L, updatedPerson)
+				.content(objectMapper.writeValueAsString(updatedPerson)).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		// System.out.println("After put: " + objectMapper.writeValueAsString(updatedPerson));
+
+	}
+	
+	// TESTING UPDATING EMAIL - VALIDATION INCLUDED IN CONTROLLER - SERVICE CLASS TESTING AND CONTROLLER TESTING /persons/{id}/email
+	@Test
+	public void testUpdateEmail() throws Exception {
+		@SuppressWarnings("deprecation")
+		Date date = new Date(120, 0, 11);
+		Person person = new Person();
+		Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku",
+				"juuso.testi@esimerkki.com", "+358 4001234");
+		person.setId(11L);
+		person.setAddress(address);
+
+		String newEmail = "juusojuusonen@gmail.com";
+		person.getAddress().setEmail(newEmail);
+
+		when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person);
+
+		// System.out.println("After when: " + objectMapper.writeValueAsString(person));
+
+		mockMvc.perform(MockMvcRequestBuilders.put("/persons/{id}/email", 11L, newEmail)
+				.content(objectMapper.writeValueAsString(newEmail)).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		// System.out.println("After put email: " + objectMapper.writeValueAsString(person));
+
+		assertEquals(newEmail, person.getAddress().getEmail());
+	}
+	
+	// TESTING GET BY FIRSTNAME - TESTING SERVICE AND CONTROLLER /persons/firstname/{firstNames}
+	@Test
+	public void testGetByFirstName() throws Exception {
+		Person person = new Person();
+		Person person2 = new Person();
+		person.setFirstnames("Matti");
+		person.setLastNames("Mattilainen");
+		person2.setFirstnames("Liisa");
+		person2.setLastNames("Liisalainen");
+
+		List<Person> persons = new ArrayList<>();
+		persons.add(person);
+		persons.add(person2);
+
+		when(personService.getPersonsByFirstName(person.getFirstnames())).thenReturn(persons);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/persons/firstname/{firstNames}", "Matti")
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+
+	}
+	
+	// TESTING GET BY LASTNAME - TESTING SERVICE AND CONTROLLER /persons/lastname/{lastName}
+	@Test
+	public void testGetByLastName() throws Exception {
+		Person person = new Person();
+		Person person2 = new Person();
+		person.setFirstnames("Matti");
+		person.setLastNames("Mattilainen");
+		person2.setFirstnames("Liisa");
+		person2.setLastNames("Liisalainen");
+
+		List<Person> persons = new ArrayList<>();
+		persons.add(person);
+		persons.add(person2);
+
+		// System.out.println("tässä henkilöt" + objectMapper.writeValueAsString(persons));
+
+		when(personService.getPersonsByLastName(person2.getLastNames())).thenReturn(persons);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen")
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+	}
 
 }

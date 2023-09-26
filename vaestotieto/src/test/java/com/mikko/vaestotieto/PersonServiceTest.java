@@ -16,95 +16,90 @@ import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.services.PersonService;
 import com.mikko.vaestotieto.validators.EmailValidator;
 
+// TESTING SERVICE CLASS PERSONSERVICE AND EMAIL VALIDATION
 public class PersonServiceTest {
 
-    @Mock
-    private PersonService personService;
+	@Mock
+	private PersonService personService;
 
-    @SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	@BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
+	
+	// FIND PERSONS NAME BY ID TEST
+	@Test
+	public void testGetPersonById() {
 
-    @Test
-    public void testGetPersonById() {
-       
-        Person mockPerson = new Person();
-        mockPerson.setId(1L);
-        mockPerson.setFirstnames("John");
+		Person mockPerson = new Person();
+		mockPerson.setId(1L);
+		mockPerson.setFirstnames("John");
+		// mockPerson.setFirstnames("Lisa"); // test with different values
 
-   
-        when(personService.getPersonById(1L)).thenReturn(mockPerson);
+		when(personService.getPersonById(1L)).thenReturn(mockPerson);
 
-       
-        Person result = personService.getPersonById(1L);
+		Person result = personService.getPersonById(1L);
 
-        
-        assertEquals(1L, result.getId());
-        assertEquals("John", result.getFirstnames());
-    }
+		assertEquals(1L, result.getId());
+		assertEquals("John", result.getFirstnames());
+	}
+	
+	//FIND PERSON BY NAME
+	@Test
+	public void testGetPersonsByFirstName() {
 
-    @Test
-    public void testGetPersonsByFirstName() {
-        
-        Person person1 = new Person();
-        person1.setId(1L);
-        person1.setFirstnames("John");
+		Person person1 = new Person();
+		person1.setId(1L);
+		person1.setFirstnames("John");
 
-        Person person2 = new Person();
-        person2.setId(2L);
-        person2.setFirstnames("Jane");
+		Person person2 = new Person();
+		person2.setId(2L);
+		person2.setFirstnames("Jane");
 
-        List<Person> mockPersons = new ArrayList<>();
-        mockPersons.add(person1);
-        mockPersons.add(person2);
+		List<Person> mockPersons = new ArrayList<>();
+		mockPersons.add(person1);
+		mockPersons.add(person2);
 
-       
-        when(personService.getPersonsByFirstName("John")).thenReturn(mockPersons);
+		when(personService.getPersonsByFirstName("John")).thenReturn(mockPersons);
 
-        
-        List<Person> result = personService.getPersonsByFirstName("John");
-       
-        assertEquals(2, result.size());
-        assertEquals("John", result.get(0).getFirstnames());
-        assertEquals("Jane", result.get(1).getFirstnames());
-    }
-    
-    @Test
-    public void testGetPersonsByLastName() {
-      
-        Person person1 = new Person();
-        person1.setId(1L);
-        person1.setLastnames("Doe");
+		List<Person> result = personService.getPersonsByFirstName("John");
 
-        Person person2 = new Person();
-        person2.setId(2L);
-        person2.setLastnames("Smith");
+		assertEquals(2, result.size());
+		assertEquals("John", result.get(0).getFirstnames());
+		assertEquals("Jane", result.get(1).getFirstnames());
+	}
+	
+	// FIND PERSON BY LASTNAME
+	@Test
+	public void testGetPersonsByLastName() {
 
-        List<Person> mockPersons = new ArrayList<>();
-        mockPersons.add(person1);
-        mockPersons.add(person2);
+		Person person1 = new Person();
+		person1.setId(1L);
+		person1.setLastNames("Doe");
 
-    
-        when(personService.getPersonsByLastName("Doe")).thenReturn(mockPersons);
+		Person person2 = new Person();
+		person2.setId(2L);
+		person2.setLastNames("Smith");
 
-        
-        List<Person> result = personService.getPersonsByLastName("Doe");
+		List<Person> mockPersons = new ArrayList<>();
+		mockPersons.add(person1);
+		mockPersons.add(person2);
 
-       
-        assertEquals(2, result.size());
-        assertEquals("Doe", result.get(0).getLastnames());
-        assertEquals("Smith", result.get(1).getLastnames());
-    }
-    
-    @Test
-    public void testUsingSimpleRegex() {
-        String emailAddress = "username@domain.com";
-        String regexPattern = "^(.+)@(\\S+)$";
-        assertTrue(EmailValidator.patternMatches(emailAddress, regexPattern));
-    }
-    
-    
+		when(personService.getPersonsByLastName("Doe")).thenReturn(mockPersons);
+
+		List<Person> result = personService.getPersonsByLastName("Doe");
+
+		assertEquals(2, result.size());
+		assertEquals("Doe", result.get(0).getLastNames());
+		assertEquals("Smith", result.get(1).getLastNames());
+	}
+
+	// TEST EMAIL VALIDATION
+	@Test
+	public void testUsingSimpleRegex() {
+		String emailAddress = "username@domain.com"; // example email
+		String regexPattern = "^(.+)@(\\S+)$"; // rule
+		assertTrue(EmailValidator.patternMatches(emailAddress, regexPattern));
+	}
 }
-

@@ -1,5 +1,5 @@
 package com.mikko.vaestotieto.controller;
 
 public class AddressController {
-
+	// ADDRESSCONTROLLER IS CREATED IF, FOR EXAMPLE, YOU NEED TO RETRIEVE ADDRESSES SEPARATELY, INDEPENDENT OF OTHER ENTITIES OR OPERATIONS.
 }

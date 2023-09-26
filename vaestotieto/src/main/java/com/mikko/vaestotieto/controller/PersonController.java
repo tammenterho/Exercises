@@ -57,18 +57,17 @@ public class PersonController {
 	    List<Person> persons = personService.getPersonsByFirstName(firstnames);
 	    if (!persons.isEmpty()) {
 	        return new ResponseEntity<>(persons, HttpStatus.OK);
-	    }
-	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }	
+	    	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-
 	
 	@GetMapping("/lastname/{lastNames}")
 	public ResponseEntity<List<Person>>getPersonByLastname(@PathVariable("lastNames") String lastNames) {
 		List<Person> persons = personService.getPersonsByLastName(lastNames);
 		if (!persons.isEmpty()) {
 			return new ResponseEntity<>(persons, HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}	
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	} 
 	
 	// POST - CREATE PERSON
@@ -76,15 +75,10 @@ public class PersonController {
 	public ResponseEntity<Person>createPerson( @RequestBody Person person) {
 		if (EmailValidator.patternMatches(person.getAddress().getEmail(), "^(.+)@(\\S+)$")) {
 		Person newPerson = personService.createPerson(person);
-		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);}
-		else {
+		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
+		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
-		
-			
-		
-		
 	}
 	
 	// PUT - UPDATE PERSON
@@ -103,31 +97,26 @@ public class PersonController {
 	@PutMapping("/{id}/email")
 	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody  String newEmail) {
 		if (EmailValidator.patternMatches(newEmail, "^(.+)@(\\S+)$")) {
-		
-	    Person updatedPerson = addressService.updateEmail(id, newEmail);
-	    
-	    if (updatedPerson != null) {
+			Person updatedPerson = addressService.updateEmail(id, newEmail);
+			if (updatedPerson != null) {
 	        return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
-	    } else {
+			} else {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
-	} else {
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
-	
-	}
-
-
 	
 	// DELETE - PERSON
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void>deletePerson(@PathVariable Long id) {
 		boolean deleted = personService.deletePerson(id);
 		 if (deleted) {
-	            return new ResponseEntity<>(HttpStatus.OK);
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	        }
+			 return new ResponseEntity<>(HttpStatus.OK);
+	     } else {
+	    	 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	     }
 	}
 	
 	// DELETE - EMAIL
@@ -138,7 +127,6 @@ public class PersonController {
 	    if (existingPerson != null) {
 	        Address personAddress = existingPerson.getAddress(); 
 	        if (personAddress != null) {
-	            
 	            addressService.deleteEmail(id);
 	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	        } else {
@@ -148,6 +136,4 @@ public class PersonController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-
-
 }

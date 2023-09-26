@@ -11,15 +11,15 @@ import com.mikko.vaestotieto.entities.Person;
 public class PersonService {
 
 	private final List<Person> persons;
-	
-	public PersonService(List<Person>persons) {
+
+	public PersonService(List<Person> persons) {
 		this.persons = persons;
 	}
-	
+
 	public List<Person> getAllPersons() {
 		return persons;
 	}
-	
+
 	public Person getPersonById(Long id) {
 		for (Person person : persons) {
 			if (person.getId().equals(id)) {
@@ -41,10 +41,8 @@ public class PersonService {
 				return updatedPerson;
 			}
 		}
-		
 		return null;
 	}
-	
 
 	public boolean deletePerson(Long id) {
 		for (Person person : persons) {
@@ -54,28 +52,25 @@ public class PersonService {
 			}
 		}
 		return false;
-	
+
 	}
-	
+
 	public List<Person> getPersonsByFirstName(String firstname) {
 		List<Person> matchingFirstNames = persons.stream()
-	            .filter(person -> person.getFirstnames().equalsIgnoreCase(firstname))
-	            .collect(Collectors.toList());
+				.filter(person -> person.getFirstnames().equalsIgnoreCase(firstname)).collect(Collectors.toList());
 
-		 int firstNameCount = matchingFirstNames.size(); // SIZE OF THE LIST
-		 System.out.println("firstnames in list" + firstNameCount);
+		int firstNameCount = matchingFirstNames.size(); // SIZE OF THE LIST
+		System.out.println("firstnames in list" + firstNameCount);
 
-	    return matchingFirstNames;
-    }
+		return matchingFirstNames;
+	}
 
-  
-    public List<Person> getPersonsByLastName(String lastname) {
-    	List<Person> matchingLastNames = persons.stream()
-                .filter(person -> person.getLastnames().equalsIgnoreCase(lastname))
-                .collect(Collectors.toList());
-    	
-    	int lastNameCount = matchingLastNames.size(); // SIZE OF THE LIST
-    	
+	public List<Person> getPersonsByLastName(String lastname) {
+		List<Person> matchingLastNames = persons.stream()
+				.filter(person -> person.getLastNames().equalsIgnoreCase(lastname)).collect(Collectors.toList());
+
+		int lastNameCount = matchingLastNames.size(); // SIZE OF THE LIST
+
 		return matchingLastNames;
-        }
+	}
 }
