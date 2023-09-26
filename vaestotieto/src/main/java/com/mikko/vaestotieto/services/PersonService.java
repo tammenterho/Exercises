@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mikko.vaestotieto.entities.Person;
 
+//INCLUDES GET ALL, GET BY ID, GET BY FIRSTNAME, GET BY LASTNAME, CREATE A PERSON, UPDATE A PERSON
 @Service
 public class PersonService {
 

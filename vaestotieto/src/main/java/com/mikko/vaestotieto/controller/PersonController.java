@@ -73,6 +73,7 @@ public class PersonController {
 	// POST - CREATE PERSON
 	@PostMapping("/")
 	public ResponseEntity<Person>createPerson( @RequestBody Person person) {
+		// validate email
 		if (EmailValidator.patternMatches(person.getAddress().getEmail(), "^(.+)@(\\S+)$")) {
 		Person newPerson = personService.createPerson(person);
 		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
@@ -96,6 +97,7 @@ public class PersonController {
 	// PUT - UPDATE EMAIL - DEPENDS ON FORM - POSSIBLY LANGUAGE AND NUMBER ASWELL
 	@PutMapping("/{id}/email")
 	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody  String newEmail) {
+		// validate email
 		if (EmailValidator.patternMatches(newEmail, "^(.+)@(\\S+)$")) {
 			Person updatedPerson = addressService.updateEmail(id, newEmail);
 			if (updatedPerson != null) {

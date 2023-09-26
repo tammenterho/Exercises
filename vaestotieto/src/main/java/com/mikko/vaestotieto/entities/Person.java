@@ -55,6 +55,7 @@ public class Person {
 	public void setLastNames(String lastNames) {
 		this.lastNames = lastNames;
 	}
+
 	public String getSsn() {
 		return ssn;
 	}
@@ -83,7 +84,7 @@ public class Person {
 	public Parents getParent1() {
 		return parent1;
 	}
-	
+
 	public Parents getParent2() {
 		return parent2;
 	}

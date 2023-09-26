@@ -231,7 +231,7 @@ public class PersonControllerTest {
 
 		when(personService.getPersonsByLastName(person2.getLastNames())).thenReturn(persons);
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen")
+		mockMvc.perform(MockMvcRequestBuilders.get("/persons/lastname/{lastName}", "Liisalainen") // if trying to find Mattilainen then correct above person2.getLastNames > person.getLastNames
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
