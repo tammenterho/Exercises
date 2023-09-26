@@ -2,6 +2,8 @@ package com.mikko.vaestotieto.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.services.AddressService;
 import com.mikko.vaestotieto.services.PersonService;
+import com.mikko.vaestotieto.validators.ValidEmail;
 
 @RestController
 @RequestMapping("persons")
@@ -71,7 +74,7 @@ public class PersonController {
 	
 	// POST - CREATE PERSON
 	@PostMapping("/")
-	public ResponseEntity<Person>createPerson(@RequestBody Person person) {
+	public ResponseEntity<Person>createPerson(@Valid @RequestBody Person person) {
 		Person newPerson = personService.createPerson(person);
 		return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
 		
@@ -94,7 +97,7 @@ public class PersonController {
 	
 	// PUT - UPDATE EMAIL - DEPENDS ON FORM - POSSIBLY LANGUAGE AND NUMBER ASWELL
 	@PutMapping("/{id}/email")
-	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
+	public ResponseEntity<Person> updateEmail(@PathVariable Long id, @RequestBody @Valid String newEmail) {
 	    Person updatedPerson = addressService.updateEmail(id, newEmail);
 	    
 	    if (updatedPerson != null) {
@@ -103,8 +106,6 @@ public class PersonController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-
-
 
 
 	
