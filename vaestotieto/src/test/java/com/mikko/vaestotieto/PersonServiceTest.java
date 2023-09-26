@@ -167,9 +167,23 @@ public class PersonServiceTest {
 
 	// TEST DELETE PERSON
 	@Test
-	public void testDeletePerson () {
-			
+	public void testDeletePerson() {
+	    
+	    Person originalPerson = new Person();
+	    originalPerson.setId(1L);
+	    originalPerson.setFirstnames("Joni");
+	    originalPerson.setLastNames("Joninen");
+	    
+	    when(personService.deletePerson(originalPerson.getId())).thenReturn(true);
+	   
+	    boolean isDeleted = personService.deletePerson(originalPerson.getId());
+	    
+	    verify(personService).deletePerson(originalPerson.getId());
+	    
+	    assertTrue(isDeleted);
 	}
+
+
 	
 	
 	
