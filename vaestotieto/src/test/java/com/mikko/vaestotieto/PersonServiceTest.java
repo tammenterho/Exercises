@@ -1,13 +1,11 @@
 package com.mikko.vaestotieto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,11 +32,11 @@ public class PersonServiceTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	// GET ALL PERSONS TEST
 	@Test
 	public void testGetAllPersons() {
-		
+
 		Person mockPerson1 = new Person();
 		Person mockPerson2 = new Person();
 		Person mockPerson3 = new Person();
@@ -48,18 +46,18 @@ public class PersonServiceTest {
 		mockPerson1.setFirstnames("John");
 		mockPerson2.setFirstnames("Lars");
 		mockPerson3.setFirstnames("Samantha");
-		
+
 		List<Person> mockPersons = new ArrayList<>();
-		    mockPersons.add(mockPerson1);
-		    mockPersons.add(mockPerson2);
-		    mockPersons.add(mockPerson3);
-		
+		mockPersons.add(mockPerson1);
+		mockPersons.add(mockPerson2);
+		mockPersons.add(mockPerson3);
+
 		when(personService.getAllPersons()).thenReturn(mockPersons);
-		
+
 		List<Person> result = personService.getAllPersons();
-	    assertEquals(mockPersons, result);
+		assertEquals(mockPersons, result);
 	}
-	
+
 	// FIND PERSONS NAME BY ID TEST
 	@Test
 	public void testGetPersonById() {
@@ -76,8 +74,8 @@ public class PersonServiceTest {
 		assertEquals(1L, result.getId());
 		assertEquals("John", result.getFirstnames());
 	}
-	
-	//FIND PERSON BY NAME
+
+	// FIND PERSON BY NAME
 	@Test
 	public void testGetPersonsByFirstName() {
 
@@ -101,7 +99,7 @@ public class PersonServiceTest {
 		assertEquals("John", result.get(0).getFirstnames());
 		assertEquals("Jane", result.get(1).getFirstnames());
 	}
-	
+
 	// FIND PERSON BY LASTNAME
 	@Test
 	public void testGetPersonsByLastName() {
@@ -126,121 +124,119 @@ public class PersonServiceTest {
 		assertEquals("Doe", result.get(0).getLastNames());
 		assertEquals("Smith", result.get(1).getLastNames());
 	}
-	
+
 	// TEST CREATE PERSON
 	@Test
-	public void testCreatePerson () {
-		
+	public void testCreatePerson() {
+
 		Person person1 = new Person();
 		person1.setId(1L);
 		person1.setFirstnames("Joni");
 		person1.setLastNames("Joninen");
-		
+
 		when(personService.createPerson(person1)).thenReturn(person1);
-		
+
 		Person createdPerson = personService.createPerson(person1);
-		
+
 		assertEquals(person1, createdPerson);
-		
+
 	}
-	
+
 	// TEST UPDATE PERSON
 	@Test
 	public void testUpdatePerson() {
-	    Person originalPerson = new Person();
-	    originalPerson.setId(1L);
-	    originalPerson.setFirstnames("Joni");
-	    originalPerson.setLastNames("Joninen");
-	    
-	    // then answer lets me define what to return instead of returning originalPerson always
-	    when(personService.updatePerson(eq(originalPerson.getId()), any())).thenAnswer(invocation -> {
-	        Person updatedPerson = invocation.getArgument(1); // second argument is updated person
-	        updatedPerson.setId(originalPerson.getId());
-	        return updatedPerson;
-	    });
+		Person originalPerson = new Person();
+		originalPerson.setId(1L);
+		originalPerson.setFirstnames("Joni");
+		originalPerson.setLastNames("Joninen");
 
-	    Person updatedPerson = new Person();
-	    updatedPerson.setFirstnames("Kerttu");
-	    updatedPerson.setLastNames("Karttunen");
+		// then answer lets me define what to return instead of returning originalPerson
+		// always
+		when(personService.updatePerson(eq(originalPerson.getId()), any())).thenAnswer(invocation -> {
+			Person updatedPerson = invocation.getArgument(1); // second argument is updated person
+			updatedPerson.setId(originalPerson.getId());
+			return updatedPerson;
+		});
 
-	    Person returnedPerson = personService.updatePerson(originalPerson.getId(), updatedPerson);
+		Person updatedPerson = new Person();
+		updatedPerson.setFirstnames("Kerttu");
+		updatedPerson.setLastNames("Karttunen");
 
-	    assertEquals(originalPerson.getId(), returnedPerson.getId());
-	    assertEquals("Kerttu", returnedPerson.getFirstnames());
-	    assertEquals("Karttunen", returnedPerson.getLastNames());
+		Person returnedPerson = personService.updatePerson(originalPerson.getId(), updatedPerson);
+
+		assertEquals(originalPerson.getId(), returnedPerson.getId());
+		assertEquals("Kerttu", returnedPerson.getFirstnames());
+		assertEquals("Karttunen", returnedPerson.getLastNames());
 	}
-
 
 	// TEST DELETE PERSON
 	@Test
 	public void testDeletePerson() {
-	    
-	    Person originalPerson = new Person();
-	    originalPerson.setId(1L);
-	    originalPerson.setFirstnames("Joni");
-	    originalPerson.setLastNames("Joninen");
-	    
-	    when(personService.deletePerson(originalPerson.getId())).thenReturn(true);
-	   
-	    boolean isDeleted = personService.deletePerson(originalPerson.getId());
-	    
-	    verify(personService).deletePerson(originalPerson.getId());
-	    
-	    assertTrue(isDeleted);
+
+		Person originalPerson = new Person();
+		originalPerson.setId(1L);
+		originalPerson.setFirstnames("Joni");
+		originalPerson.setLastNames("Joninen");
+
+		when(personService.deletePerson(originalPerson.getId())).thenReturn(true);
+
+		boolean isDeleted = personService.deletePerson(originalPerson.getId());
+
+		verify(personService).deletePerson(originalPerson.getId());
+
+		assertTrue(isDeleted);
 	}
-	
+
 	// TEST DELETE EMAIL
 	@Test
 	public void testDeleteEmail() {
-	   
-	    Person person = new Person();
-	    person.setId(1L);
-	    Address address = new Address();
-	    address.setEmail("joni@example.com");
-	    person.setAddress(address);
 
-	    List<Person> persons = new ArrayList<>();
-	    persons.add(person);
+		Person person = new Person();
+		person.setId(1L);
+		Address address = new Address();
+		address.setEmail("joni@example.com");
+		person.setAddress(address);
 
-	    when(addressService.deleteEmail(eq(1L))).thenAnswer(invocation -> {
-	       
-	        Person deletedPerson = persons.get(0);
-	        deletedPerson.getAddress().setEmail(null);
-	        return deletedPerson;
-	    });
+		List<Person> persons = new ArrayList<>();
+		persons.add(person);
 
-	    
-	    Person deletedPerson = addressService.deleteEmail(1L);
-	    assertNull(deletedPerson.getAddress().getEmail());
+		when(addressService.deleteEmail(eq(1L))).thenAnswer(invocation -> {
+
+			Person deletedPerson = persons.get(0);
+			deletedPerson.getAddress().setEmail(null);
+			return deletedPerson;
+		});
+
+		Person deletedPerson = addressService.deleteEmail(1L);
+		assertNull(deletedPerson.getAddress().getEmail());
 	}
 
 	// TEST UPDATE EMAIL
 	@Test
 	public void testUpdateEmail() {
-	  
-	    Person originalPerson = new Person();
-	    originalPerson.setId(1L);
-	    Address address = new Address();
-	    address.setEmail("joni@example.com");
-	    originalPerson.setAddress(address);
 
-	    when(addressService.updateEmail(eq(originalPerson.getId()), anyString())).thenAnswer(invocation -> {
-	        String newEmail = invocation.getArgument(1); // second argument is the new email
-	        Person updatedPerson = new Person();
-	        updatedPerson.setId(originalPerson.getId());
-	        address.setEmail(newEmail);
-	        updatedPerson.setAddress(address);
-	        return updatedPerson;
-	    });
+		Person originalPerson = new Person();
+		originalPerson.setId(1L);
+		Address address = new Address();
+		address.setEmail("joni@example.com");
+		originalPerson.setAddress(address);
 
-	    String newEmail = "new.email@example.com";
-	    Person returnedPerson = addressService.updateEmail(1L, newEmail);
-	    
-	    System.out.println("Returned Person: " + returnedPerson.toString());
+		when(addressService.updateEmail(eq(originalPerson.getId()), anyString())).thenAnswer(invocation -> {
+			String newEmail = invocation.getArgument(1); // second argument is the new email
+			Person updatedPerson = new Person();
+			updatedPerson.setId(originalPerson.getId());
+			address.setEmail(newEmail);
+			updatedPerson.setAddress(address);
+			return updatedPerson;
+		});
 
-	    assertEquals(1L, returnedPerson.getId());
-	    assertEquals(newEmail, returnedPerson.getAddress().getEmail());
-	    
+		String newEmail = "new.email@example.com";
+		Person returnedPerson = addressService.updateEmail(1L, newEmail);
+
+		System.out.println("Returned Person: " + returnedPerson.toString());
+
+		assertEquals(1L, returnedPerson.getId());
+		assertEquals(newEmail, returnedPerson.getAddress().getEmail());
 	}
 
 	// TEST EMAIL VALIDATION

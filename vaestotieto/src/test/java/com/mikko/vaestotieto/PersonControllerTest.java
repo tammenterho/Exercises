@@ -263,6 +263,7 @@ public class PersonControllerTest {
 	@Test
 	public void testDeleteEmail() throws Exception {
 		Person person = new Person();
+		@SuppressWarnings("deprecation")
 		Date date = new Date(120, 0, 11);
 		Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku",
 				"juuso.testi@esimerkki.com", "+358 4001234");

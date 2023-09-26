@@ -60,8 +60,8 @@ public class PersonService {
 		List<Person> matchingFirstNames = persons.stream()
 				.filter(person -> person.getFirstnames().equalsIgnoreCase(firstname)).collect(Collectors.toList());
 
-		int firstNameCount = matchingFirstNames.size(); // SIZE OF THE LIST
-		System.out.println("firstnames in list" + firstNameCount);
+		//int firstNameCount = matchingFirstNames.size(); // SIZE OF THE LIST
+		// System.out.println("firstnames in list" + firstNameCount);
 
 		return matchingFirstNames;
 	}
@@ -70,7 +70,7 @@ public class PersonService {
 		List<Person> matchingLastNames = persons.stream()
 				.filter(person -> person.getLastNames().equalsIgnoreCase(lastname)).collect(Collectors.toList());
 
-		int lastNameCount = matchingLastNames.size(); // SIZE OF THE LIST
+		// int lastNameCount = matchingLastNames.size(); // SIZE OF THE LIST
 
 		return matchingLastNames;
 	}
