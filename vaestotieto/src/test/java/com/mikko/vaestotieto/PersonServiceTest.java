@@ -1,6 +1,7 @@
 package com.mikko.vaestotieto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -139,10 +140,31 @@ public class PersonServiceTest {
 	
 	// TEST UPDATE PERSON
 	@Test
-	public void testUpdatePerson () {
-		
+	public void testUpdatePerson() {
+	    Person originalPerson = new Person();
+	    originalPerson.setId(1L);
+	    originalPerson.setFirstnames("Joni");
+	    originalPerson.setLastNames("Joninen");
+	    
+	    // then answer lets me define what to return instead of returning originalPerson always
+	    when(personService.updatePerson(eq(originalPerson.getId()), any())).thenAnswer(invocation -> {
+	        Person updatedPerson = invocation.getArgument(1); // second argument is updated person
+	        updatedPerson.setId(originalPerson.getId());
+	        return updatedPerson;
+	    });
+
+	    Person updatedPerson = new Person();
+	    updatedPerson.setFirstnames("Kerttu");
+	    updatedPerson.setLastNames("Karttunen");
+
+	    Person returnedPerson = personService.updatePerson(originalPerson.getId(), updatedPerson);
+
+	    assertEquals(originalPerson.getId(), returnedPerson.getId());
+	    assertEquals("Kerttu", returnedPerson.getFirstnames());
+	    assertEquals("Karttunen", returnedPerson.getLastNames());
 	}
-	
+
+
 	// TEST DELETE PERSON
 	@Test
 	public void testDeletePerson () {
