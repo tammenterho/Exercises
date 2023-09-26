@@ -19,7 +19,8 @@ public class PersonServiceTest {
     @Mock
     private PersonService personService;
 
-    @BeforeEach
+    @SuppressWarnings("deprecation")
+	@BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }

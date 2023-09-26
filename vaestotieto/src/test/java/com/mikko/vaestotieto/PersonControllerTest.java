@@ -15,18 +15,14 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mikko.vaestotieto.controller.PersonController;
 import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Parents;
 import com.mikko.vaestotieto.entities.Permits;
@@ -73,7 +69,8 @@ public class PersonControllerTest {
 	        PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
 	        person.setPersonMore(personMore);
 	        
-	        Date date = new Date(120, 0, 11);
+	        @SuppressWarnings("deprecation")
+			Date date = new Date(120, 0, 11);
 	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
 	        person.setAddress(address);
 	        
@@ -120,7 +117,8 @@ public class PersonControllerTest {
 	        PersonMore personMore = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
 	        person.setPersonMore(personMore);
 	        
-	        Date date = new Date(120, 0, 11);
+	        @SuppressWarnings("deprecation")
+			Date date = new Date(120, 0, 11);
 	        Address address = new Address ("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
 	        person.setAddress(address);
 	        
@@ -154,7 +152,8 @@ public class PersonControllerTest {
 	        PersonMore personMore2 = new PersonMore("Finland", "Helsinki", "Finnish", "Male", "Single", "Engineer");
 	        updatedPerson.setPersonMore(personMore2);
 	        
-	        Date date2 = new Date(120, 0, 11);
+	        @SuppressWarnings("deprecation")
+			Date date2 = new Date(120, 0, 11);
 	        Address address2 = new Address ("Tuureporinkatu 15 b", "20100 Turku", date2, 2, "Turku", date2, "Turku", "juuso.testi@esimerkki.com", "+358 4001234" );
 	        updatedPerson.setAddress(address2);
 	        
@@ -184,7 +183,8 @@ public class PersonControllerTest {
 	  @Test
 	  public void testUpdateEmail() throws Exception {
 	      
-	      Date date = new Date(120, 0, 11);
+	      @SuppressWarnings("deprecation")
+		Date date = new Date(120, 0, 11);
 	      Person person = new Person();
 	      Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku", "juuso.testi@esimerkki.com", "+358 4001234");
 	      person.setId(11L);

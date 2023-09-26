@@ -63,6 +63,7 @@ public class PersonService {
 	            .collect(Collectors.toList());
 
 		 int firstNameCount = matchingFirstNames.size(); // SIZE OF THE LIST
+		 System.out.println("firstnames in list" + firstNameCount);
 
 	    return matchingFirstNames;
     }
