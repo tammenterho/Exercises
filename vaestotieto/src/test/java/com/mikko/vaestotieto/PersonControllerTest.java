@@ -246,7 +246,7 @@ public class PersonControllerTest {
 		String newEmail = "juusojuusonen@gmail.com";
 		person.getAddress().setEmail(newEmail);
 
-		when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person); // ADDRESSSERVICE
+		when(addressService.updateEmail(eq(person.getId()), any())).thenReturn(person); // ADDRESSSERVICE SIMULATION
 
 		// System.out.println("After when: " + objectMapper.writeValueAsString(person));
 
@@ -267,14 +267,17 @@ public class PersonControllerTest {
 		Address address = new Address("Tuureporinkatu 15 b", "20100 Turku", date, 2, "Turku", date, "Turku",
 				"juuso.testi@esimerkki.com", "+358 4001234");
 		person.setId(11L);
+		person.setAddress(address);
 
-		when(addressService.deleteEmail(eq(person.getId()))).thenReturn(null); // should return null if deleted
+		when(addressService.deleteEmail(eq(person.getId()))).thenReturn(null); // should return null if deleted - doesnt actully delete email
 
 		mockMvc.perform(
 				MockMvcRequestBuilders.delete("/persons/{id}/email", 11L)
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isNotFound()); // waiting for 404 because no email after
-																			// delete
+				.andExpect(MockMvcResultMatchers.status().isNotFound()); // waiting for 404 because no email after delete
+																			
+		
+		// System.out.println("After deleting email: " + objectMapper.writeValueAsString(person));
 	}
 
 }

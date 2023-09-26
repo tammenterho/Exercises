@@ -16,7 +16,7 @@ import com.mikko.vaestotieto.entities.Person;
 import com.mikko.vaestotieto.services.PersonService;
 import com.mikko.vaestotieto.validators.EmailValidator;
 
-// TESTING SERVICE CLASS PERSONSERVICE AND EMAIL VALIDATION
+// TESTING SERVICE CLASSES PERSONSERVICE, ADDRESSERVICE AND EMAIL VALIDATION
 public class PersonServiceTest {
 
 	@Mock
@@ -26,6 +26,31 @@ public class PersonServiceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+	}
+	
+	// GET ALL PERSONS TEST
+	@Test
+	public void testGetAllPersons() {
+		
+		Person mockPerson1 = new Person();
+		Person mockPerson2 = new Person();
+		Person mockPerson3 = new Person();
+		mockPerson1.setId(1L);
+		mockPerson2.setId(2L);
+		mockPerson3.setId(3L);
+		mockPerson1.setFirstnames("John");
+		mockPerson2.setFirstnames("Lars");
+		mockPerson3.setFirstnames("Samantha");
+		
+		List<Person> mockPersons = new ArrayList<>();
+		    mockPersons.add(mockPerson1);
+		    mockPersons.add(mockPerson2);
+		    mockPersons.add(mockPerson3);
+		
+		when(personService.getAllPersons()).thenReturn(mockPersons);
+		
+		List<Person> result = personService.getAllPersons();
+	    assertEquals(mockPersons, result);
 	}
 	
 	// FIND PERSONS NAME BY ID TEST
