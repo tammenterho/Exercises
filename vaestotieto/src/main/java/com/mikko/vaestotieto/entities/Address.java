@@ -26,6 +26,8 @@ public class Address {
 		this.email = email;
 		this.phone = phone;
 	}
+	
+	public Address () {}
 
 	public String getLocalAddress() {
 		return localAddress;

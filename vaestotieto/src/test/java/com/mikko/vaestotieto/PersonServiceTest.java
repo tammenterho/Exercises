@@ -2,6 +2,7 @@ package com.mikko.vaestotieto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -13,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.mikko.vaestotieto.entities.Address;
 import com.mikko.vaestotieto.entities.Person;
+import com.mikko.vaestotieto.services.AddressService;
 import com.mikko.vaestotieto.services.PersonService;
 import com.mikko.vaestotieto.validators.EmailValidator;
 
@@ -22,6 +25,8 @@ public class PersonServiceTest {
 
 	@Mock
 	private PersonService personService;
+	@Mock
+	private AddressService addressService;
 
 	@SuppressWarnings("deprecation")
 	@BeforeEach
@@ -182,12 +187,43 @@ public class PersonServiceTest {
 	    
 	    assertTrue(isDeleted);
 	}
-
-
-	
-	
 	
 	// EMAIL
+	
+	
+	@Test
+	public void testDeleteEmail() {
+	   
+	    Person person = new Person();
+	    person.setId(1L);
+	    Address address = new Address();
+	    address.setEmail("joni@example.com");
+	    person.setAddress(address);
+
+	    List<Person> persons = new ArrayList<>();
+	    persons.add(person);
+
+	    when(addressService.deleteEmail(eq(1L))).thenAnswer(invocation -> {
+	       
+	        Person deletedPerson = persons.get(0);
+	        deletedPerson.getAddress().setEmail(null);
+	        return deletedPerson;
+	    });
+
+	    
+	    Person deletedPerson = addressService.deleteEmail(1L);
+	    assertNull(deletedPerson.getAddress().getEmail());
+	}
+
+
+
+
+
+
+
+
+	
+	
 	
 	// TEST EMAIL VALIDATION
 	@Test
