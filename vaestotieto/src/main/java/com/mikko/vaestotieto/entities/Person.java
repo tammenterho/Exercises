@@ -1,7 +1,7 @@
 package com.mikko.vaestotieto.entities;
 
 import java.util.Objects;
-
+// ALSO TOSTRING, COPY, HASHCODE AND EQUALS - COULD BE ADDED TO ALL CLASSES IF NEEDED
 public class Person {
 	private Long id;
 	private String firstnames;
