@@ -74,4 +74,30 @@ public class PersonService {
 
 		return matchingLastNames;
 	}
+	
+	
+	// THESE METHODS DEPENDS ON DATABASE
+	
+	public Person savePerson(Person person) {
+	   
+	    if (person.getId() == null) {
+	        long newId = generateNewId();
+	        person.setId(newId);
+	        persons.add(person);
+	    } else {
+	        for (int i = 0; i < persons.size(); i++) {
+	            if (persons.get(i).getId().equals(person.getId())) {
+	                persons.set(i, person); 
+	                break;
+	            }
+	        }
+	    }
+	    return person;
+	}
+
+	
+	private long generateNewId() {
+	    return Math.round(Math.random() * 100000);
+	}
+
 }

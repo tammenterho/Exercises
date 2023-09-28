@@ -13,6 +13,8 @@ public class Parents {
 		this.parentsLastName = parentsLastName;
 		this.parentsBirth = parentsBirth;
 	}
+	
+	public Parents () {}
 
 	public String getParentsFirstName() {
 		return parentsFirstName;

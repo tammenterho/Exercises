@@ -49,7 +49,10 @@ public class PersonControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.get("/persons/").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
-
+	
+	//@BeforeAll for setting up user
+	
+	
 	// TESTING GET PERSON BY ID "/persons/{id}"
 	@Test
 	public void testGetByIdPerson() throws Exception {
@@ -88,7 +91,8 @@ public class PersonControllerTest {
 
 		Parents parent1 = new Parents("Jussi", "Testinen", date);
 		Parents parent2 = new Parents("Liisa", "Testinen", date);
-		person.setParents(parent2, parent1);
+		person.setParent1(parent1);
+		person.setParent2(parent2);
 
 		Permits permits = new Permits(false, true, false, false, true);
 		person.setPermits(permits);
@@ -121,7 +125,8 @@ public class PersonControllerTest {
 		Parents parent1 = new Parents("Jussi", "Testinen", date);
 		Parents parent2 = new Parents("Liisa", "Testinen", date);
 
-		person.setParents(parent2, parent1);
+		person.setParent1(parent1);
+		person.setParent2(parent2);
 
 		Permits permits = new Permits(false, true, false, false, true);
 		person.setPermits(permits);
@@ -152,7 +157,8 @@ public class PersonControllerTest {
 		Parents parent3 = new Parents("Jussi", "Testinen", date);
 		Parents parent4 = new Parents("Liisa", "Testinen", date);
 
-		updatedPerson.setParents(parent4, parent3);
+		person.setParent1(parent3);
+		person.setParent2(parent4);
 
 		Permits permits2 = new Permits(false, true, false, false, true);
 		updatedPerson.setPermits(permits2);

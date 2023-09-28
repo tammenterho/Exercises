@@ -18,6 +18,8 @@ public class PersonMore {
 		this.maritalStatus = maritalStatus;
 		this.occupation = occupation;
 	}
+	
+	public PersonMore () {}
 
 	public String getCountryBorn() {
 		return countryBorn;

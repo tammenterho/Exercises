@@ -32,6 +32,8 @@ public class Permits {
 		this.directMarketingPermit = directMarketingPermit;
 		this.contactInformationPermit = contactInformationPermit;
 	}
+	
+	public Permits () {}
 
 	public boolean isCustomerRegisterPermit() {
 		return customerRegisterPermit;
