@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author terho
- *
- */
-module NumBetweenNum {
-}
